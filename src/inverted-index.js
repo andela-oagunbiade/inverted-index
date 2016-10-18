@@ -1,5 +1,6 @@
-class Index {
-    createIndex(file){
-        return file;
-    }
+class invertedIndex{
+	constructor(){
+		this.filesIndexed = {};
+		this.searchResults = {};
+	}
 }
