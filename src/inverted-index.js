@@ -75,4 +75,23 @@ class InvertedIndex{
 		});
 		return self.index;
 	}
+
+	/**
+	 * This Method allows a user to search through indexed files
+	 * Returns the document containing the search word if found
+	 * @param{String} queryString - Search query
+	 */
+	searchIndex(search) {
+		//Checks if the word being searched for exists in our Index Object
+		if(this.index[search] !== undefined) {
+			//Loops through the array containing the document locations for the word
+			for(let i in this.index[search]){
+				var documentIndex = this.index[search][i];
+				//Use the document location to retrieve the documents containing the word
+				return(books[documentIndex]);
+			}
+		}else {
+		return ("We are Sorry but that word is not found in our database");
+		}
+	}
 }
