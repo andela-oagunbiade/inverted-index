@@ -18,6 +18,8 @@ describe("Inverted Index Suite", function(){
             }         
         ];
 
+        newIndex.createIndex(books);
+
         sampleString = "As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.";
     });
 
@@ -47,24 +49,19 @@ describe("Inverted Index Suite", function(){
         it("Method createIndex should create an index mapping words to document locations", function() {
             expect(newIndex.createIndex(books)).toBeDefined();
             expect(newIndex.index.heroku).toBeDefined();
-            console.log(newIndex.index.heroku);
-            console.log(newIndex.index.lines);
             expect(Object.keys(newIndex.index).length).toBe(38);
         });
     });
 
     describe("Suite to Read Data", function() {
         it("JSON file should not be empty", function() {
-            newIndex.createIndex(books);
             expect(newIndex.indexWords.length).toBeGreaterThan(0);
         });
     });
     describe("Suite to Search Index", function() {
         it("Method searchIndex should return documents containing the search item", function() {
-            // expect(newIndex.searchIndex(lines)).toBe();
-            console.log(newIndex.index.heroku);
-            console.log(newIndex.index.lines);
-            
+            let searches = newIndex.searchIndex("heroku");
+            expect(JSON.stringify(searches)).toBe(JSON.stringify([0]));
             expect(newIndex.searchIndex("andela")).toBe("We are Sorry but that word is not found in our database");
         });
     });
