@@ -11,7 +11,12 @@ class InvertedIndex{
 		 * Initialize an empty object to hold the mapping
 		 * of the words to their file location 
 		 */
-		this.index ={};
+		this.index = {};
+		/**
+		 * Initialize an empty array to hold the 
+		 * search results for words
+		 */
+		this.searchResults = [];
 	}
 	
 	/**
@@ -83,13 +88,14 @@ class InvertedIndex{
 	 */
 	searchIndex(search) {
 		//Checks if the word being searched for exists in our Index Object
-		if(this.index[search] !== undefined) {
+		if(this.index[search]) {
 			//Loops through the array containing the document locations for the word
-			for(let i in this.index[search]){
-				var documentIndex = this.index[search][i];
+			for(let x in this.index[search]) {
+				let documentIndex = this.index[search][x];
 				//Use the document location to retrieve the documents containing the word
-				return(books[documentIndex]);
+				this.searchResults.push(documentIndex);
 			}
+			return this.searchResults;
 		}else {
 		return ("We are Sorry but that word is not found in our database");
 		}
