@@ -23,12 +23,13 @@
         </header>
         <main class="mdl-layout__content" ng-controller="invertedController">
             <div class="page-content">
-                <input type="file" id="selectFiles" value="Import"  accept ="json"/>
-                <!-- Colored raised button -->
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="import" ng-click="readFile()">
-                Create Index
-                </button>
-                <p ng-repeat="file in filed">{{file}} </p>
+                <form>
+                    <input type="file" id="selectFiles" value="Import"  accept ="json"/>
+                    <!-- Colored raised button -->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="import" ng-click="readFile()">
+                    Create Index
+                    </button>
+                </form>
                 <table>
                     <thead>
                         <tr>
@@ -43,7 +44,18 @@
                         </tr>
                     </tbody>
                 </table>
-
+                <form>
+                    <input type="text" id="searchFiles" placeholder="search a word"/>
+                    <!-- Colored raised button -->
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="search" ng-click="searchFile()">
+                    Search Files
+                    </button>
+                </form>
+                <p ng-repeat="i in searchResults">
+                    <span> Document Title: {{filed[i].title}} </span>
+                    <br>
+                    <span> Document Text: {{filed[i].text}} </span>
+                </p>
             </div>
         </main>
         </div>
