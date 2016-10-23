@@ -89,9 +89,9 @@ class InvertedIndex{
 	searchIndex(search) {
 		//Checks if the word being searched for exists in our Index Object
 		if(this.index[search]) {
+			this.searchResults = [];
 			//Loops through the array containing the document locations for the word
 			for(let x in this.index[search]) {
-				this.searchResults = [];
 				let documentIndex = this.index[search][x];
 				//Use the document location to retrieve the documents containing the word
 				this.searchResults.push(documentIndex);
