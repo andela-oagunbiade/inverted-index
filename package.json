@@ -4,8 +4,9 @@
   "description": "A simple inverted index application",
   "main": "app.js",
   "scripts": {
-    "start": "gulp",
-    "test": "node_modules/karma/bin/karma start karma.conf.js --single-run"
+    "start": "node server.js",
+    "test": "node_modules/karma/bin/karma start karma.conf.js --single-run",
+    "dev": "gulp"
   },
   "repository": {
     "type": "git",
