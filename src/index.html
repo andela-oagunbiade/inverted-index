@@ -14,50 +14,52 @@
     <body ng-app="InvertedIndex">
         <!-- Always shows a header, even in smaller screens. -->
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
-            <!-- Title -->
-            <span class="mdl-layout-title">Inverted Index</span>
-            <!-- Add spacer, to align navigation to the right -->
-            </div>
-        </header>
-        <main class="mdl-layout__content" ng-controller="invertedController">
-            <div class="page-content">
-                <form>
-                    <input type="file" id="selectFiles" value="Import"  accept ="json"/>
-                    <!-- Colored raised button -->
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="import" ng-click="readFile()">
-                    Create Index
-                    </button>
-                </form>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Keywords</th>
-                            <th ng-repeat="i in range">Document {{ i+1 }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="(key,value) in index">
-                            <td>{{ key }}</td>
-                            <td ng-repeat="i in range"> <span ng-if="value.includes(i)"> x </span></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <form>
-                    <input type="text" id="searchFiles" placeholder="search a word"/>
-                    <!-- Colored raised button -->
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="search" ng-click="searchFile()">
-                    Search Files
-                    </button>
-                </form>
-                <p ng-repeat="i in searchResults">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Inverted Index</span>
+                <!-- Add spacer, to align navigation to the right -->
+                </div>
+            </header>
+            <main class="mdl-layout__content" ng-controller="invertedController" style="width: 100%; overflow: hidden;">
+                <div class="page-content" style="width: 600px; float: left;">
+                    <form>
+                        <input type="file" id="selectFiles" value="Import"  accept ="json"/>
+                        <!-- Colored raised button -->
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="import" ng-click="readFile()">
+                        Create Index
+                        </button>
+                    </form>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Keywords</th>
+                                <th ng-repeat="i in range">Document {{ i+1 }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(key,value) in index">
+                                <td>{{ key }}</td>
+                                <td ng-repeat="i in range"> <span ng-if="value.includes(i)"> x </span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-left: 620px;">
+                    <form>
+                        <input type="text" id="searchFiles" placeholder="search a word"/>
+                        <!-- Colored raised button -->
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="search" ng-click="searchFile()">
+                        Search Files
+                        </button>
+                    </form>
+                    <p ng-repeat="i in searchResults">
                     <span> Document Title: {{filed[i].title}} </span>
                     <br>
                     <span> Document Text: {{filed[i].text}} </span>
-                </p>
-            </div>
-        </main>
+                    </p>
+                </div>
+            </main>
         </div>
     </body>
     
