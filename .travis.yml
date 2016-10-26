@@ -6,3 +6,7 @@ before_install:
  - export CHROME_BIN=/usr/bin/google-chrome
  - export DISPLAY=:99.0
  - sh -e /etc/init.d/xvfb start
+		
+ - addons:		
+ -    code_climate:		
+ -        repo_token: 350008647cce421a87b25bce6204918de36970d86eb26424f2d4fec896172a66 
