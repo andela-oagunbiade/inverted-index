@@ -3,7 +3,7 @@ engines:
   fixme:
     enabled: true
 ratings:
-  paths: []
-exclude_paths: [
+  paths:
+    - src/
+exclude_paths: 
   - spec/lib/*
-]
