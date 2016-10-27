@@ -72,7 +72,7 @@ describe("Inverted Index Suite", function(){
             newIndex.createIndex(books);
             let searches = newIndex.searchIndex("heroku");
             expect(JSON.stringify(searches)).toBe(JSON.stringify([0]));
-            expect(newIndex.searchIndex("andela")).toBe("We are Sorry but that word is not found in our database");
+            expect(newIndex.searchIndex("andela")).toBe("We are Sorry but andela is not found in our database");
         });
     });
         
