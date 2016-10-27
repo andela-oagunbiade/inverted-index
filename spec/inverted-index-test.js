@@ -2,7 +2,7 @@
 
     //A test suite to read book data
 describe("Inverted Index Suite", function(){
-    let newIndex, books, sampleString;
+    let newIndex, books, emptybook, sampleString;
         
     beforeEach(function(){
         //Create an instance of the Index class
@@ -18,7 +18,9 @@ describe("Inverted Index Suite", function(){
             }         
         ];
 
-        newIndex.createIndex(books);
+        emptybook = [
+            {}
+        ];
 
         sampleString = "As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.";
     });
@@ -53,13 +55,21 @@ describe("Inverted Index Suite", function(){
         });
     });
 
+    describe("Suite to Get Index", function() {
+        it("Method getIndex should return an accurate index Object of the indexed JSON file", function() {
+            newIndex.createIndex(books);
+            expect(Object.keys(newIndex.getIndex()).length).toBe(38);
+        });
+    });
+
     describe("Suite to Read Data", function() {
         it("JSON file should not be empty", function() {
-            expect(newIndex.indexWords.length).toBeGreaterThan(0);
+            expect(newIndex.createIndex(emptybook)).toBe("JSON file is Empty");
         });
     });
     describe("Suite to Search Index", function() {
         it("Method searchIndex should return documents containing the search item", function() {
+            newIndex.createIndex(books);
             let searches = newIndex.searchIndex("heroku");
             expect(JSON.stringify(searches)).toBe(JSON.stringify([0]));
             expect(newIndex.searchIndex("andela")).toBe("We are Sorry but that word is not found in our database");
