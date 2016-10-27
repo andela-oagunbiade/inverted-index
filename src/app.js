@@ -4,10 +4,10 @@ let invertedApp = angular
     .module("InvertedIndex", [])
     .controller("invertedController", function($scope) {
         $scope.message = "Inverted Index";
-        $scope.errorMessage = " ";
+        $scope.uploadError = " ";
         function setMessage(msg) {
             $scope.$apply(function() {
-                $scope.errorMessage = msg;
+                $scope.uploadError = msg;
             });
         }
         let newIndex = new InvertedIndex();
@@ -46,9 +46,14 @@ let invertedApp = angular
             };
         };
         $scope.searchFile = function() {
-            let searchItem = document.getElementById("searchFiles").value;
-            searchItem = searchItem.trim().toLowerCase();
+            $scope.isError = false;
+            let searchItem = $scope.searchTerm;
+            searchItem = newIndex.tokenize(searchItem);
             let searchResults = newIndex.searchIndex(searchItem);
+            if(typeof(searchResults)=== "string") {
+                $scope.searchError = searchResults;
+                $scope.isError = true;
+            }
             $scope.searchResults = searchResults;
         };
     });
