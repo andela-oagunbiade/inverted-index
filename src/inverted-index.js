@@ -48,8 +48,12 @@ class InvertedIndex{
 	 */
 	createIndex(jsonData) {
 		for (let i of jsonData) {
-			//Iterate through the jsonData and store contents in an array
-			this.indexWords.push(i.title.toLowerCase() + " " + i.text.toLowerCase());
+			if(i.text) {
+				//Iterate through the jsonData and store contents in an array
+				this.indexWords.push(i.title.toLowerCase() + " " + i.text.toLowerCase());
+			} else{
+				return "JSON file is Empty";
+			}
 		}
 		
 		/**
@@ -79,6 +83,14 @@ class InvertedIndex{
 			});
 		});
 		return self.index;
+	}
+
+	/**
+	 * This method returns an object that is an accurate index 
+	 * of the content of the indexed file
+	 */
+	getIndex(){
+		return this.index;
 	}
 
 	/**
