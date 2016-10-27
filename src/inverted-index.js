@@ -110,7 +110,7 @@ class InvertedIndex{
 			}
 			return this.searchResults;
 		}else {
-		return ("We are Sorry but that word is not found in our database");
+		return ("We are Sorry but " + search + " is not found in our database");
 		}
 	}
 }

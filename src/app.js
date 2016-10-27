@@ -48,12 +48,17 @@ let invertedApp = angular
         $scope.searchFile = function() {
             $scope.isError = false;
             let searchItem = $scope.searchTerm;
-            searchItem = newIndex.tokenize(searchItem);
-            let searchResults = newIndex.searchIndex(searchItem);
-            if(typeof(searchResults)=== "string") {
-                $scope.searchError = searchResults;
-                $scope.isError = true;
-            }
-            $scope.searchResults = searchResults;
+            searchItem = newIndex.uniqueWords(searchItem);
+            for(let x in searchItem) {
+                let searchResults = newIndex.searchIndex(searchItem[x]);
+                console.log(searchResults);
+                if(typeof(searchResults)=== "string") {
+                    $scope.searchError = searchResults;
+                    $scope.isError = true;
+                }
+                $scope.searchResults = searchResults;
+            } 
+            
+            
         };
     });
