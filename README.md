@@ -5,4 +5,43 @@
 # Inverted-Index
 An application that takes in a JSON array of text objects and creates an index from the array allowing users to search for words contained in the array.
 
--
+## Key Features
+- Upload of JSON file in below format.
+```
+[
+    {"title": "Heroku",
+    "text":"You will be asked to enter your Heroku credentials the first time you run a command; after the first time, your email address and an API token will be saved"
+    },
+    {"title": "Coveralls",
+    "text": "See the latest code-coverage statistics on all of your repositories including the total percentages covered and the lines covered."
+    }         
+]
+```
+- Creates Index of all documents with title and text keys in uploaded file.
+- Searching of indexed files.
+
+## How to use
+- Web use
+Available via heroku hosted platform on : [https://inverted-index-ore.herokuapp.com](https://inverted-index-ore.herokuapp.com/).
+It can also be used locally by following the steps below
+
+- Local Machine 
+```
+git clone https://github.com/andela-oagunbiade/inverted-index.git
+```
+#### Change directory into inverted-index and follow the steps below.
+1. Run npm install to install all the dependencies (you must have installed [Nodejs](nodejs.org))
+
+2. Start the application with:
+```
+npm start
+```
+
+#### The application is written with the following Services & Javascript Technologies:
+- Gulp (Task Runner)
+- Karma (Generate Test Coverage Folder)
+- Jasmine (Test Runner)
+- Travis CI (For Continous Integration and badge)
+- Coveralls (To compute Test Coverage % and badge)
+- Hound (To prevent style violations)
+- Codeclimate (For styling badge)
