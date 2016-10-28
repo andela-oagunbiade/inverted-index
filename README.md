@@ -30,12 +30,27 @@ It can also be used locally by following the steps below
 git clone https://github.com/andela-oagunbiade/inverted-index.git
 ```
 #### Change directory into inverted-index and follow the steps below.
-1. Run npm install to install all the dependencies (you must have installed [Nodejs](nodejs.org))
+1. Install all the dependencies (you must have installed [Nodejs](nodejs.org)):
+```
+npm install
+```
 
-2. Start the application with:
+2. Run Tests for the application with:
 ```
-npm start
+npm test
 ```
+3. Start the Application with:
+```
+npm Start
+```
+and access on your browser via http://localhost:3000/ or 
+
+To also access Developer features such as Browser-sync; run the Task-runner with:
+```
+gulp 
+```
+
+
 
 #### The application is written with the following Services & Javascript Technologies:
 - Gulp (Task Runner)
@@ -45,3 +60,10 @@ npm start
 - Coveralls (To compute Test Coverage % and badge)
 - Hound (To prevent style violations)
 - Codeclimate (For styling badge)
+- AngularJs (For Manipulating model responsive views)
+- Material lite Design (For View Styling)
+
+
+#### Application Limitations
+- This version of the app does not yet feature multiple file uploads
+- It only takes in single search queries

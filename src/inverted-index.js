@@ -22,17 +22,17 @@ class InvertedIndex{
 	/**
 	 * This Method returns an array of tokens/words from the provided input
 	 * after removing special characters and white spaces
-	 * @params{String} str - String to be tokonized
+	 * @param{String} str - String to be tokonized
 	 */
 	tokenize(str) {
-	    var cleanString = str.trim().replace(/-/g, " ").replace(/[.,\/#!$%\^&@\*;:'{}=\_`~()]/g, "").toLowerCase().split(" ").sort();
-	    return cleanString;
+	    var cleanContent = str.trim().replace(/-/g, " ").replace(/[.,\/#!$%\^&@\*;:'{}=\_`~()]/g, "").toLowerCase().split(" ").sort();
+	    return cleanContent;
 	}
 	
 	/**
 	 * This method returns an array of tokenized unique words
 	 * of the provided input 
-	 * @params{String} str - The string to be filtered
+	 * @param{String} str - The string to be filtered
 	 */
 	uniqueWords(str) {
 		var tokens = this.tokenize(str);
@@ -44,7 +44,7 @@ class InvertedIndex{
 	/**
 	 * This method creates an index and updates the index object
 	 * Also populates the indexWords array with contents of supplied data
-	 * @params{Array} jsonData - The contents of the JSON file that is to be indexed
+	 * @param{Array} jsonData - The contents of the JSON file that is to be indexed
 	 */
 	createIndex(jsonData) {
 		for (let i of jsonData) {
