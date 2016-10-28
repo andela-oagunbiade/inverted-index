@@ -30,16 +30,16 @@ It can also be used locally by following the steps below
 git clone https://github.com/andela-oagunbiade/inverted-index.git
 ```
 #### Change directory into inverted-index and follow the steps below.
-1. Install all the dependencies (you must have installed [Nodejs](nodejs.org)):
+- Install all the dependencies (you must have installed [Nodejs](nodejs.org)):
 ```
 npm install
 ```
 
-2. Run Tests for the application with:
+- Run Tests for the application with:
 ```
 npm test
 ```
-3. Start the Application with:
+- Start the Application with:
 ```
 npm Start
 ```
@@ -52,7 +52,7 @@ gulp
 
 
 
-#### The application is written with the following Services & Javascript Technologies:
+## The application is written with the following Services & Javascript Technologies:
 - Gulp (Task Runner)
 - Karma (Generate Test Coverage Folder)
 - Jasmine (Test Runner)
@@ -64,6 +64,6 @@ gulp
 - Material lite Design (For View Styling)
 
 
-#### Application Limitations
+## Application Limitations
 - This version of the app does not yet feature multiple file uploads
 - It only takes in single search queries

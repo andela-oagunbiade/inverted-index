@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 // Karma configuration
 // Generated on Tue Oct 25 2016 13:16:51 GMT+0100 (WAT)
 
@@ -6,17 +6,17 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: "",
+    basePath: '',
 
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ["jasmine"],
+    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
-    files: ["src/inverted-index.js",
-    "spec/*.js"
+    files: ['src/inverted-index.js',
+    'spec/*.js'
     ],
 
 
@@ -28,18 +28,18 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      "./src/inverted-index.js" : ["coverage"]
+      './src/inverted-index.js' : ['coverage']
     },
 
 
     // test results reporter to use
-    // possible values: "dots", "progress"
+    // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ["progress", "coverage"],
+    reporters: ['progress', 'coverage'],
 
     coverageReporter: {
-      type: "lcov",
-      dir: "coverage/"
+      type: 'lcov',
+      dir: 'coverage/'
     },
     // web server port
     port: 9876,
@@ -60,7 +60,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ["Chrome"],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
