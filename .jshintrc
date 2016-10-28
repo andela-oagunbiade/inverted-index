@@ -16,12 +16,5 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
-  "globals": {
-    "atom": true,
-    "window":true
-  },
-  "jasmine": true,
-  "-W117": true,
-  "multistr": true,
-  "mocha": true
+  "jasmine": true
 }
