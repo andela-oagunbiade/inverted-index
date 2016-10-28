@@ -33,7 +33,8 @@ let invertedApp = angular
                     }
                     let index = newIndex.createIndex(filed);
                     let range = [];
-                    for(let i=0;i<filed.length;i++) {
+                    let filedLength = filed.length;
+                    for(let i=0; i<filedLength; i++) {
                         range.push(i);
                     }
                     $scope.filed =filed;
@@ -51,14 +52,11 @@ let invertedApp = angular
             searchItem = newIndex.uniqueWords(searchItem);
             for(let x in searchItem) {
                 let searchResults = newIndex.searchIndex(searchItem[x]);
-                console.log(searchResults);
                 if(typeof(searchResults)=== "string") {
                     $scope.searchError = searchResults;
                     $scope.isError = true;
                 }
                 $scope.searchResults = searchResults;
-            } 
-            
-            
+            }              
         };
     });

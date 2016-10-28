@@ -58,6 +58,9 @@ describe("Inverted Index Suite", function(){
     describe("Suite to Get Index", function() {
         it("Method getIndex should return an accurate index Object of the indexed JSON file", function() {
             newIndex.createIndex(books);
+            expect(newIndex.index.heroku).toBeDefined();
+            expect(newIndex.index.coveralls).toBeDefined();
+            expect(newIndex.index.address).toBeDefined();
             expect(Object.keys(newIndex.getIndex()).length).toBe(38);
         });
     });

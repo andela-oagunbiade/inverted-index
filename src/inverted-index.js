@@ -37,7 +37,7 @@ class InvertedIndex{
 	uniqueWords(str) {
 		var tokens = this.tokenize(str);
 		return tokens.filter(function (item, pos) {
-      		return tokens.indexOf(item) === pos;
+			return tokens.indexOf(item) === pos;
 		});
 	}
 
@@ -85,10 +85,6 @@ class InvertedIndex{
 		return self.index;
 	}
 
-	/**
-	 * This method returns an object that is an accurate index 
-	 * of the content of the indexed file
-	 */
 	getIndex(){
 		return this.index;
 	}
@@ -110,7 +106,7 @@ class InvertedIndex{
 			}
 			return this.searchResults;
 		}else {
-		return ("We are Sorry but " + search + " is not found in our database");
+			return ("We are Sorry but " + search + " is not found in our database");
 		}
 	}
 }
