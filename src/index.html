@@ -26,7 +26,7 @@
                 <div class="page-content" style="width: 600px; float: left;" align="center">
                     <form align="centre">
                         <input type="file" id="selectFiles" value="Import"  accept ="json"/>
-                        <p ng-if="!fileExists">{{ uploadError }}</p>
+                        <p ng-if="!fileExists" style="color:red">{{ uploadError }}</p>
                         <!-- Colored raised button -->
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="import" ng-click="readFile()">
                         Create Index
@@ -56,14 +56,14 @@
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="search" ng-click="searchFile()">
                         Search Files
                         </button>
-                        <p ng-if="isError">{{searchError}} </p>
+                        <p ng-if="isError" style="color:red">{{searchError}} </p>
                     </form>
                     <br/><br/>
-                    <p ng-if="fileExists" ng-repeat="i in searchResults">
-                    <span > Document Title: {{filed[i].title}} </span>
-                    <br>
-                    <span> Document Text: {{filed[i].text}} </span>
-                    </p>
+                    <div ng-if="!isError" ng-repeat="i in searchResults">
+                    <p> Document Title: {{filed[i].title}} </p>
+                    <br />
+                    <p> Document Text: {{filed[i].text}} </p>
+                    </div>
                 </div>
             </main>
         </div>
