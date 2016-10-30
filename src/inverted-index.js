@@ -6,21 +6,23 @@ class InvertedIndex {
     //Object to hold the indexes
     this.index = {};
 
-    this.searchResults = [];
+    this.searchResults = {};
   }
 
-  /**
-   * This Method returns an array of tokens/words 
+  /** 
    * @param{String} str - String to be tokonized
+   * @return{Array} cleanContent
    */
   tokenize(str) {
-    let cleanContent = str.trim().replace(/-/g, ' ').replace(/[.,\/#!$%\^&@\*;:'{}=\_`~()]/g, '').toLowerCase().split(' ').sort();
+    let cleanContent = str.trim().replace(/-/g, ' ')
+      .replace(/[.,\/#!$%\^&@\*;:'{}=\_`~()]/g, '')
+      .toLowerCase().split(' ').sort();
     return cleanContent;
   }
 
   /**
-   * This method returns an array of tokenized unique words
    * @param{String} str - The string to be filtered
+   * @return{Array} tokens - Without duplicated words
    */
   uniqueWords(str) {
     let tokens = this.tokenize(str);
@@ -30,32 +32,32 @@ class InvertedIndex {
   }
 
   /**
-   * This method creates an index and updates the index object
-   * Also populates the indexWords array with contents of supplied data
-   * @param{Array} jsonData - The contents of the JSON file that is to be indexed
+   * @param{Array} jsonData - The contents of the JSON file to be indexed
+   * @return{Object} index - That maps words to locations(documents)
    */
   createIndex(jsonData) {
     for (let i of jsonData) {
       if (i.text) {
-        this.indexWords.push(i.title.toLowerCase() + ' ' + i.text.toLowerCase());
+        this.indexWords.push(i.title.toLowerCase() + ' ' +
+          i.text.toLowerCase());
       } else {
         return 'JSON file is Empty';
       }
     }
 
     const uniqueContent = this.uniqueWords(this.indexWords.join(' '));
-
     const self = this;
-
     uniqueContent.forEach(function (word) {
       self.index[word] = [];
-
       self.indexWords.forEach(function (document, pos) {
         if (document.indexOf(word) > -1) {
           self.index[word].push(pos);
         }
+
       });
+
     });
+
     return self.index;
   }
 
@@ -64,20 +66,24 @@ class InvertedIndex {
   }
 
   /**
-   * This Method allows a user to search through indexed files
-   * Returns the document containing the search word if found
-   * @param{String} queryString - Search query
+   * @param{String} searchString - Search query
+   * @return{Array} searchResults
    */
-  searchIndex(search) {
-    if (this.index[search]) {
-      this.searchResults = [];
-      for (let x in this.index[search]) {
-        let documentIndex = this.index[search][x];
-        this.searchResults.push(documentIndex);
+  searchIndex(searchString) {
+    this.searchResults = {};
+    let searchTerms = this.uniqueWords(searchString);
+    const self = this;
+    for (let word of searchTerms) {
+      if (self.index[word]) {
+        self.searchResults[word] = self.index[word];
+      } else {
+        self.searchResults[word] = `We are Sorry but ${word} is not found 
+          in our database`;
       }
-      return this.searchResults;
-    } else {
-      return 'We are Sorry but ' + search + ' is not found in our database';
+      
     }
+
+    return (self.searchResults);
   }
+
 }
