@@ -77,8 +77,7 @@ class InvertedIndex {
       if (self.index[word]) {
         self.searchResults[word] = self.index[word];
       } else {
-        self.searchResults[word] = `We are Sorry but ${word} is not found 
-          in our database`;
+        self.searchResults[word] = `We are Sorry but ${word} is not found in our database`;
       }
       
     }

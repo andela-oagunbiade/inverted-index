@@ -2,7 +2,7 @@
 
 //A test suite to read book data
 describe('Inverted Index Suite', function () {
-  let newIndex, books, emptybook, sampleString;
+  let newIndex, books, emptybook, mySearch, sampleString;
 
   beforeEach(function () {
     //Create an instance of the Index class
@@ -20,59 +20,87 @@ describe('Inverted Index Suite', function () {
     emptybook = [{}];
 
     sampleString = 'As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.';
+
+    mySearch = ['your', 'all', 'andela'];
+
+    newIndex.createIndex(books);
   });
 
-  describe('Class Inverted Index Class', function () {
+  describe('Class Inverted Index', function () {
     it('Inverted Index should be a class', function () {
+      expect(newIndex instanceof InvertedIndex).toBe(true);
+      expect(newIndex instanceof Object).toBe(true);
       expect(typeof (newIndex)).toBe('object');
     });
 
   });
 
-  describe('Suite to Tokenize String', function () {
-    it('Method tokenize should create and return a correct array of all words from a supplied string', function () {
-      expect(newIndex.tokenize(sampleString)).toBeDefined();
-      expect(newIndex.tokenize(sampleString).length).toBe(20);
+  describe('Tokenize String Method', function () {
+    it('Method tokenize should be available in class InvertedIndex',
+      function () {
+        expect(newIndex.tokenize(sampleString)).toBeDefined();
+      });
+    it('Method tokenize should return an array containing\
+     alphabets only', function () {
       expect(newIndex.tokenize(sampleString)).not.toContain('&');
+    });
+    it('Method tokenize should return an array containing the correct\
+     number of words', function () {
+      expect(newIndex.tokenize(sampleString).length).toBe(20);
     });
   });
 
-  describe('Suite to Create Unique Words', function () {
-    it('Method uniqueWords should create and return a correct array of words', function () {
+  describe('Unique Words Method', function () {
+    it('Method uniqueWords should be available in class InvertedIndex', function () {
       expect(newIndex.uniqueWords(sampleString)).toBeDefined();
+    });
+    it('Returns an array of words without duplicates', function () {
       expect(newIndex.uniqueWords(sampleString).length).toBe(16);
     });
   });
 
-  describe('Suite to Create Index', function () {
-    it('Method createIndex should create an index mapping words to document locations', function () {
+  describe('Read Book Data', function () {
+    it('createIndex should be available in class InvertedIndex', function () {
       expect(newIndex.createIndex(books)).toBeDefined();
-      expect(newIndex.index.heroku).toBeDefined();
-      expect(Object.keys(newIndex.index).length).toBe(38);
     });
-  });
-
-  describe('Suite to Get Index', function () {
-    it('Method getIndex should return an accurate index Object of the indexed JSON file', function () {
-      newIndex.createIndex(books);
-      expect(newIndex.index.heroku).toBeDefined();
-      expect(newIndex.index.coveralls).toBeDefined();
-      expect(newIndex.index.address).toBeDefined();
-      expect(Object.keys(newIndex.getIndex()).length).toBe(38);
-    });
-  });
-
-  describe('Suite to Read Data', function () {
     it('JSON file should not be empty', function () {
       expect(newIndex.createIndex(emptybook)).toBe('JSON file is Empty');
     });
   });
-  describe('Suite to Search Index', function () {
-    it('Method searchIndex should return documents containing the search item', function () {
-      newIndex.createIndex(books);
-      let searches = newIndex.searchIndex('heroku');
-      expect(JSON.stringify(searches)).toBe(JSON.stringify([0]));
-      expect(newIndex.searchIndex('andela')).toBe('We are Sorry but andela is not found in our database');
+
+  describe('Populate Index', function () {
+    it('Index should be created', function () {
+      expect(newIndex.index.heroku).toBeDefined();
+    });
+    it('Accurately map words to their document location', function () {
+      expect(Object.keys(newIndex.index).length).toBe(38);
+      expect(JSON.stringify(newIndex.index.your)).toBe(JSON.stringify([0, 1]));
+    });
+  });
+
+  describe('Get Index Method', function () {
+    it('Returns accurate index Object of the indexed JSON file', function () {
+      expect(Object.keys(newIndex.getIndex()).length).toBe(38);
+    });
+  });
+
+  describe('Search Index', function () {
+    it('Method searchIndex should be accessible', function () {
+      expect(newIndex.searchIndex(' ')).toBeDefined();
+    });
+    it('It should return correct index for each word', function () {
+      expect(JSON.stringify(newIndex.searchIndex('heroku')))
+        .toBe(JSON.stringify({
+          'heroku': [0]
+        }));
+      expect(JSON.stringify(newIndex.searchIndex('your')))
+        .toBe(JSON.stringify({
+          'your': [0, 1]
+        }));
+      expect(JSON.stringify(newIndex.searchIndex('amity')))
+        .toBe(JSON.stringify({
+          'amity': 'We are Sorry but amity is not found in our database'
+        }));
     });
   });
 
