@@ -1,33 +1,26 @@
 'use strict';
 
 //A test suite to read book data
-describe('Inverted Index Suite', function () {
-  let newIndex, books, emptybook, mySearch, sampleString;
+describe('Inverted Index Suite', () => {
 
-  beforeEach(function () {
-    //Create an instance of the Index class
-    newIndex = new InvertedIndex();
+  //Create an instance of the Index class
+  const newIndex = new InvertedIndex();
+  //Test files to be used in the Index
+  const books = [{
+    'title': 'Heroku',
+    'text': 'You will be asked to enter your Heroku credentials the first time you run a command; after the first time, your email address and an API token will be saved'
+  }, {
+    'title': 'Coveralls',
+    'text': 'See the latest code-coverage statistics on all of your repositories including the total percentages covered and the lines covered.'
+  }];
 
-    //Test files to be used in the Index
-    books = [{
-      'title': 'Heroku',
-      'text': 'You will be asked to enter your Heroku credentials the first time you run a command; after the first time, your email address and an API token will be saved'
-    }, {
-      'title': 'Coveralls',
-      'text': 'See the latest code-coverage statistics on all of your repositories including the total percentages covered and the lines covered.'
-    }];
+  const emptybook = [{}];
+  const sampleString = 'As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.';
+  const mySearch = ['your', 'all', 'andela'];
+  newIndex.createIndex(books);
 
-    emptybook = [{}];
-
-    sampleString = 'As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.';
-
-    mySearch = ['your', 'all', 'andela'];
-
-    newIndex.createIndex(books);
-  });
-
-  describe('Class Inverted Index', function () {
-    it('Inverted Index should be a class', function () {
+  describe('Class Inverted Index', () => {
+    it('Inverted Index should be a class', () => {
       expect(newIndex instanceof InvertedIndex).toBe(true);
       expect(newIndex instanceof Object).toBe(true);
       expect(typeof (newIndex)).toBe('object');
@@ -35,72 +28,69 @@ describe('Inverted Index Suite', function () {
 
   });
 
-  describe('Tokenize String Method', function () {
+  describe('Tokenize String Method', () => {
     it('Method tokenize should be available in class InvertedIndex',
-      function () {
-        expect(newIndex.tokenize(sampleString)).toBeDefined();
+      () => {
+        expect(newIndex.tokenize).toBeDefined();
       });
     it('Method tokenize should return an array containing\
-     alphabets only', function () {
+     alphabets only', () => {
       expect(newIndex.tokenize(sampleString)).not.toContain('&');
     });
     it('Method tokenize should return an array containing the correct\
-     number of words', function () {
+     number of words', () => {
       expect(newIndex.tokenize(sampleString).length).toBe(20);
     });
   });
 
-  describe('Unique Words Method', function () {
-    it('Method uniqueWords should be available in class InvertedIndex', function () {
-      expect(newIndex.uniqueWords(sampleString)).toBeDefined();
+  describe('Unique Words Method', () => {
+    it('Method uniqueWords should be available in class InvertedIndex', () => {
+      expect(newIndex.uniqueWords).toBeDefined();
     });
-    it('Returns an array of words without duplicates', function () {
+    it('Returns an array of words without duplicates', () => {
       expect(newIndex.uniqueWords(sampleString).length).toBe(16);
     });
   });
 
-  describe('Read Book Data', function () {
-    it('createIndex should be available in class InvertedIndex', function () {
-      expect(newIndex.createIndex(books)).toBeDefined();
+  describe('Read Book Data', () => {
+    it('createIndex should be available in class InvertedIndex', () => {
+      expect(newIndex.createIndex).toBeDefined();
     });
-    it('JSON file should not be empty', function () {
+    it('JSON file should not be empty', () => {
       expect(newIndex.createIndex(emptybook)).toBe('JSON file is Empty');
     });
   });
 
-  describe('Populate Index', function () {
-    it('Index should be created', function () {
+  describe('Populate Index', () => {
+    it('Index should be created', () => {
       expect(newIndex.index.heroku).toBeDefined();
     });
-    it('Accurately map words to their document location', function () {
+    it('Accurately map words to their document location', () => {
       expect(Object.keys(newIndex.index).length).toBe(38);
-      expect(JSON.stringify(newIndex.index.your)).toBe(JSON.stringify([0, 1]));
+      expect(newIndex.index.your).toEqual([0, 1]);
     });
   });
 
-  describe('Get Index Method', function () {
-    it('Returns accurate index Object of the indexed JSON file', function () {
+  describe('Get Index Method', () => {
+    it('Returns accurate index Object of the indexed JSON file', () => {
       expect(Object.keys(newIndex.getIndex()).length).toBe(38);
     });
   });
 
-  describe('Search Index', function () {
-    it('Method searchIndex should be accessible', function () {
-      expect(newIndex.searchIndex(' ')).toBeDefined();
+  describe('Search Index', () => {
+    it('Method searchIndex should be accessible', () => {
+      expect(newIndex.searchIndex).toBeDefined();
     });
-    it('It should return correct index for each word', function () {
-      expect(JSON.stringify(newIndex.searchIndex('heroku')))
-        .toBe(JSON.stringify({
-          'heroku': [0]
-        }));
-      expect(JSON.stringify(newIndex.searchIndex('your')))
-        .toBe(JSON.stringify({
-          'your': [0, 1]
-        }));
-      expect(JSON.stringify(newIndex.searchIndex('amity')))
-        .toBe(JSON.stringify({
-          'amity': 'We are Sorry but amity is not found in our database'
-        }));
+    it('It should return correct index for each word', () => {
+      expect(newIndex.searchIndex('heroku')).toEqual({
+        'heroku': [0]
+      });
+      expect(newIndex.searchIndex('your')).toEqual({
+        'your': [0, 1]
+      });
+      expect(newIndex.searchIndex('amity')).toEqual({
+        'amity': 'We are Sorry but amity is not found in our database'
+      });
     });
   });
 
