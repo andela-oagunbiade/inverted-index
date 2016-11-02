@@ -19,5 +19,6 @@ gulp.task('reload', function () {
 
 gulp.task('watch', function () {
   gulp.watch('./src/*.js', ['reload']);
+  gulp.watch('./src/*.css', ['reload']);
   gulp.watch('./src/*.html', ['reload']);
 });
