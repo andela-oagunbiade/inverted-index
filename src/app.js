@@ -1,6 +1,6 @@
 'use strict';
 
-let invertedApp = angular
+const invertedApp = angular
   .module('InvertedIndex', [])
   .controller('invertedController', function ($scope) {
     $scope.message = 'Inverted Index';
@@ -12,10 +12,10 @@ let invertedApp = angular
       });
     }
 
-    let newIndex = new InvertedIndex();
+    const newIndex = new InvertedIndex();
     $scope.readFile = function () {
-      let thefile = document.getElementById('selectFiles').files[0];
-      let reader = new FileReader();
+      const thefile = document.getElementById('select-files').files[0];
+      const reader = new FileReader();
       reader.readAsText(thefile);
 
       reader.onload = function (e) {
@@ -25,7 +25,7 @@ let invertedApp = angular
           return;
         }
         try {
-          let filed = JSON.parse(e.target.result);
+          const filed = JSON.parse(e.target.result);
           if (filed.length === 0 || !filed[0].title || !filed[0].text) {
             $scope.fileExists = false;
             setMessage('This is an Empty JSON File');
@@ -34,9 +34,9 @@ let invertedApp = angular
             $scope.fileExists = true;
           }
 
-          let index = newIndex.createIndex(filed);
-          let range = [];
-          let filedLength = filed.length;
+          const index = newIndex.createIndex(filed);
+          const range = [];
+          const filedLength = filed.length;
           for (let i = 0; i < filedLength; i++) {
             range.push(i);
           }
@@ -52,7 +52,7 @@ let invertedApp = angular
     };
 
     $scope.searchFile = function () {
-      let searchItem = $scope.searchTerm;
+      const searchItem = $scope.searchTerm;
       $scope.searchResults = newIndex.searchIndex(searchItem);
     };
     
