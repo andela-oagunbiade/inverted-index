@@ -4,9 +4,8 @@
   "description": "A simple inverted index application",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "gulp test",
-    "dev": "gulp"
+    "start": "gulp",
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
