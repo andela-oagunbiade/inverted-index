@@ -7,7 +7,7 @@ const run = require('gulp-run');
 
 gulp.task('default', ['browser-sync', 'browserify', 'watch']);
 
-gulp.task('browser-sync', () => {
+gulp.task('browser-sync', function () {
   browserSync({
     server: {
       baseDir: './src'
@@ -15,21 +15,21 @@ gulp.task('browser-sync', () => {
   });
 });
 
-gulp.task('reload', () => {
+gulp.task('reload', function () {
   browserSync.reload();
 });
 
-gulp.task('watch', () => {
+gulp.task('watch', function () {
   gulp.watch('./src/*.js', ['reload']);
   gulp.watch('./src/*.css', ['reload']);
   gulp.watch('./src/*.html', ['reload']);
 });
 
-gulp.task('test', ['browserify'], () => {
+gulp.task('test', ['browserify'], function () {
   run('node_modules/karma/bin/karma start karma.conf.js --single-run').exec();
 });
 
-gulp.task('browserify', () => {
+gulp.task('browserify', function () {
   return browserify('./spec/inverted-index-test.js')
     .bundle()
     .pipe(source('test-spec.js'))
