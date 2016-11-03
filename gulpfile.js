@@ -10,7 +10,7 @@ gulp.task('default', ['browser-sync', 'browserify', 'watch']);
 gulp.task('browser-sync', function () {
   browserSync({
     server: {
-      baseDir: './src'
+      baseDir: './'
     }
   });
 });
@@ -22,7 +22,7 @@ gulp.task('reload', function () {
 gulp.task('watch', function () {
   gulp.watch('./src/*.js', ['reload']);
   gulp.watch('./src/*.css', ['reload']);
-  gulp.watch('./src/*.html', ['reload']);
+  gulp.watch('./*.html', ['reload']);
 });
 
 gulp.task('test', ['browserify'], function () {
