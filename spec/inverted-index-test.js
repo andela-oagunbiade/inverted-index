@@ -1,19 +1,10 @@
 'use strict';
+const books = require('./books');
 
 //A test suite to read book data
 describe('Inverted Index Suite', () => {
-
   //Create an instance of the Index class
   const newIndex = new InvertedIndex();
-  //Test files to be used in the Index
-  const books = [{
-    'title': 'Heroku',
-    'text': 'You will be asked to enter your Heroku credentials the first time you run a command; after the first time, your email address and an API token will be saved'
-  }, {
-    'title': 'Coveralls',
-    'text': 'See the latest code-coverage statistics on all of your repositories including the total percentages covered and the lines covered.'
-  }];
-
   const emptybook = [{}];
   const sampleString = 'As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.';
   const mySearch = ['your', 'all', 'andela'];
@@ -25,7 +16,6 @@ describe('Inverted Index Suite', () => {
       expect(newIndex instanceof Object).toBe(true);
       expect(typeof (newIndex)).toBe('object');
     });
-
   });
 
   describe('Tokenize String Method', () => {
@@ -93,5 +83,5 @@ describe('Inverted Index Suite', () => {
       });
     });
   });
-
+  
 });

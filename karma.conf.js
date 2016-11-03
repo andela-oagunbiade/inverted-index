@@ -2,7 +2,7 @@
 // Karma configuration
 // Generated on Tue Oct 25 2016 13:16:51 GMT+0100 (WAT)
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -16,19 +16,18 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: ['src/inverted-index.js',
-    'spec/*.js'
+      'spec/tests/test-spec.js'
     ],
 
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './src/inverted-index.js' : ['coverage']
+      './src/inverted-index.js': ['coverage']
     },
 
 
@@ -42,10 +41,10 @@ module.exports = function(config) {
       dir: 'coverage/'
     },
 
-    specAsHtmlReporter : {
-    dir : 'dist',              // path to write the file, defaults to `./`
-    outputFile: 'spec.html'    // name of the file, defaults to `spec.html`
-    }, 
+    specAsHtmlReporter: {
+      dir: 'dist', // path to write the file, defaults to `./`
+      outputFile: 'spec.html' // name of the file, defaults to `spec.html`
+    },
     // web server port
     port: 9876,
 
