@@ -10,10 +10,9 @@ const run = require('gulp-run');
 gulp.task('default', ['browser-sync', 'browserify', 'watch']);
 
 gulp.task('browser-sync', () => {
-  browserSync({
-    server: {
-      baseDir: './'
-    }
+  browserSync.init({
+    server:  './',
+    port: process.env.PORT || 5000
   });
 });
 
