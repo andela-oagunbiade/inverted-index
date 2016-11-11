@@ -41,7 +41,7 @@ npm test
 ```
 - Start the Application with:
 ```
-npm Start
+npm start
 ```
 and access on your browser via http://localhost:3000/ or 
 

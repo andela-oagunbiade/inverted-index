@@ -6,12 +6,12 @@ describe('Inverted Index Suite', () => {
   //Create an instance of the Index class
   const newIndex = new InvertedIndex();
   const emptybook = [{}];
-  const sampleString = 'As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.';
+  const sampleSentence = 'As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.';
   const mySearch = ['your', 'all', 'andela'];
   newIndex.createIndex(books);
 
   describe('Class Inverted Index', () => {
-    it('Inverted Index should be a class', () => {
+    it('should be a class', () => {
       expect(newIndex instanceof InvertedIndex).toBe(true);
       expect(newIndex instanceof Object).toBe(true);
       expect(typeof (newIndex)).toBe('object');
@@ -19,66 +19,65 @@ describe('Inverted Index Suite', () => {
   });
 
   describe('Tokenize String Method', () => {
-    it('Method tokenize should be available in class InvertedIndex',
+    it('should be available in class InvertedIndex',
       () => {
         expect(newIndex.tokenize).toBeDefined();
       });
-    it('Method tokenize should return an array containing\
+    it('should return an array containing\
      alphabets only', () => {
-      expect(newIndex.tokenize(sampleString)).not.toContain('&');
+      expect(newIndex.tokenize(sampleSentence)).not.toContain('&');
     });
-    it('Method tokenize should return an array containing the correct\
-     number of words', () => {
-      expect(newIndex.tokenize(sampleString).length).toBe(20);
+    it('should return an array containing the correct number of words', () => {
+      expect(newIndex.tokenize(sampleSentence).length).toBe(20);
     });
   });
 
   describe('Unique Words Method', () => {
-    it('Method uniqueWords should be available in class InvertedIndex', () => {
+    it('should be available in class InvertedIndex', () => {
       expect(newIndex.uniqueWords).toBeDefined();
     });
-    it('Returns an array of words without duplicates', () => {
-      expect(newIndex.uniqueWords(sampleString).length).toBe(16);
+    it('should return an array of words without duplicates', () => {
+      expect(newIndex.uniqueWords(sampleSentence).length).toBe(16);
     });
   });
 
   describe('Read Book Data', () => {
-    it('createIndex should be available in class InvertedIndex', () => {
+    it('should have createIndex available in class InvertedIndex', () => {
       expect(newIndex.createIndex).toBeDefined();
     });
-    it('JSON file should not be empty', () => {
+    it('should ensure the JSON file should is not empty', () => {
       expect(newIndex.createIndex(emptybook)).toBe('JSON file is Empty');
     });
   });
 
   describe('Populate Index', () => {
-    it('Index should be created', () => {
+    it('should have Index created', () => {
       expect(newIndex.index.heroku).toBeDefined();
     });
-    it('Accurately map words to their document location', () => {
+    it('should accurately map words to their document location', () => {
       expect(Object.keys(newIndex.index).length).toBe(38);
       expect(newIndex.index.your).toEqual([0, 1]);
     });
   });
 
   describe('Get Index Method', () => {
-    it('Returns accurate index Object of the indexed JSON file', () => {
+    it('should return an accurate index Object of the indexed file', () => {
       expect(Object.keys(newIndex.getIndex()).length).toBe(38);
     });
   });
 
   describe('Search Index', () => {
-    it('Method searchIndex should be accessible', () => {
+    it('should have searchIndex method accessible in the class', () => {
       expect(newIndex.searchIndex).toBeDefined();
     });
-    it('It should return correct index for each word', () => {
-      expect(newIndex.searchIndex('heroku')).toEqual({
+    it('should return correct index for each word', () => {
+      expect(newIndex.searchIndex('heroku',newIndex.getIndex())).toEqual({
         'heroku': [0]
       });
-      expect(newIndex.searchIndex('your')).toEqual({
+      expect(newIndex.searchIndex('your',newIndex.getIndex())).toEqual({
         'your': [0, 1]
       });
-      expect(newIndex.searchIndex('amity')).toEqual({
+      expect(newIndex.searchIndex('amity',newIndex.getIndex())).toEqual({
         'amity': 'We are Sorry but amity is not found in our database'
       });
     });

@@ -15,6 +15,7 @@
   "unused": false,
   "strict": true,
   "trailing": true,
+  "esVersion": 6,
   "smarttabs": true,
   "globals": {
     "atom": true,

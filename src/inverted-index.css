@@ -27,6 +27,14 @@
   margin-left: 110px;
 }
 
+#success-paragraph {
+  color: green;
+  height: 5px;
+  width: 250px;
+  margin-top: 5px;
+  margin-left: 110px;
+}
+
 .search-content {
   margin-left: 620px;
 }
