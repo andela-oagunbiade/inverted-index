@@ -24,27 +24,41 @@
 			</div>
 		</header>
 		<br /><br />
+		<div id="quick-guide">
+			<p>Quick Guide</p>
+			<ul id="guide-list">
+				<li>Choose a JSON File from your directory</li>
+				<li>Use the "Upload File" Button to have the file uploaded</li>
+				<li>Use the "Create Index" Button to have the index created and displayed</li>
+				<li>Use the "Search Files" Button to check the location of a word in the index</li>
+			</ul>
+		</div>
 		<main ng-controller="invertedController">
 			<div class="index-content">
-				<form>
-					<input type="file" id="select-files" value="Import" accept="json" />
-					<p style="height:10px;">
-						<span ng-show="!uploadSuccess" id="error-paragraph">{{ uploadError }}</span>
-            <span ng-show="uploadSuccess" id="success-paragraph"> Upload Successful </span>
-					</p>
-					<!-- Colored raised button -->
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="import" ng-click="uploadFile()">
+				<div id='upload-section'>
+					<form>
+						<input type="file" id="select-files" value="Import" accept="json" />
+						<p style="height:10px;">
+							<span ng-show="!uploadSuccess" id="error-paragraph">{{ uploadError }}</span>
+							<span ng-show="uploadSuccess" id="success-paragraph"> Upload Successful! </span>
+						</p>
+					</form>
+				</div>
+				<!-- Colored raised button -->
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="import" ng-click="uploadFile()">
             <span>Upload File</span>
           </button>
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="index" ng-click="createIndex()">
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="index" ng-click="createIndex()">
             <span>Create Index</span>
           </button>
 				</form>
 				<br />
-				<hr>
+				<div>
+					<hr>
+				</div>
 				<br />
 				<div id="index-table">
-					<table ng-if="uploadSuccess && indexExists && !validSearch" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+					<table ng-if="uploadSuccess && indexExists" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 						<thead>
 							<tr>
 								<th> Keywords </th>
@@ -54,12 +68,27 @@
 						<tbody>
 							<tr ng-repeat="(key,value) in indexObject">
 								<td style="text-align: center">{{ key }}</td>
-								<td ng-repeat="i in range" style="text-align: center; font-weight:bold"> <span ng-if="value.includes(i)"> x </span></td>
+								<td ng-repeat="i in range" style="text-align: center; font-weight:bold"> <span ng-if="value.includes(i)"> X </span></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-        <div id="search-table">
+			</div>
+			<div align="center" class="search-content">
+				<form>
+					<input type="text" id="search-files" placeholder="Enter a word to search" ng-model="searchTerm" />
+					<!-- Colored raised button -->
+					<br/>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="search-button" ng-click="searchFile()">
+            <span>Search Files</span>
+          </button>
+				</form>
+				<br/>
+				<div id='search-line'>
+					<hr>
+				</div>
+				<br/>
+				<div id="search-table">
 					<table ng-if="uploadSuccess && indexExists && validSearch" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
 						<thead>
 							<tr>
@@ -71,25 +100,12 @@
 							<tr ng-repeat="(key,value) in searchResults">
 								<td style="text-align: center">{{ key }}</td>
 								<td ng-repeat="i in range" style="text-align: center">
-									<span ng-if="value.includes(i)" style="color:green; font-weight:bold"> Found </span>
-									<span ng-if="!value.includes(i)" style="color:red; font-size:8px"> Not Found </span>
+									<span ng-if="value.includes(i)" style="color:green; font-weight:bold"> X </span>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-			</div>
-			<div style="margin-left: 620px;" align="center" class="search-content">
-				<form>
-					<input type="text" id="search-files" placeholder="Enter a word to search" ng-model="searchTerm" />
-					<!-- Colored raised button -->
-					<br/>
-					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="search-button" ng-click="searchFile()">
-            <span>Search Files</span>
-          </button>
-				</form>
-				<br/>
-				<hr>
 			</div>
 	</div>
 	</main>

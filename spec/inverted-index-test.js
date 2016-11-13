@@ -5,7 +5,7 @@ const books = require('./books');
 describe('Inverted Index Suite', () => {
   //Create an instance of the Index class
   const newIndex = new InvertedIndex();
-  const emptybook = [{}];
+  const emptyBook = [{}];
   const sampleSentence = 'As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.';
   const mySearch = ['your', 'all', 'andela'];
   newIndex.createIndex(books);
@@ -19,12 +19,10 @@ describe('Inverted Index Suite', () => {
   });
 
   describe('Tokenize String Method', () => {
-    it('should be available in class InvertedIndex',
-      () => {
+    it('should be available in class InvertedIndex', () => {
         expect(newIndex.tokenize).toBeDefined();
       });
-    it('should return an array containing\
-     alphabets only', () => {
+    it('should return an array containing alphabets only', () => {
       expect(newIndex.tokenize(sampleSentence)).not.toContain('&');
     });
     it('should return an array containing the correct number of words', () => {
@@ -45,17 +43,18 @@ describe('Inverted Index Suite', () => {
     it('should have createIndex available in class InvertedIndex', () => {
       expect(newIndex.createIndex).toBeDefined();
     });
-    it('should ensure the JSON file should is not empty', () => {
-      expect(newIndex.createIndex(emptybook)).toBe('JSON file is Empty');
+    it('should ensure the JSON file is not empty', () => {
+      expect(newIndex.createIndex(emptyBook)).toBe('JSON file is Empty');
     });
   });
 
   describe('Populate Index', () => {
-    it('should have Index created', () => {
+    it('should have an Index created', () => {
       expect(newIndex.index.heroku).toBeDefined();
     });
     it('should accurately map words to their document location', () => {
       expect(Object.keys(newIndex.index).length).toBe(38);
+      expect(newIndex.index.heroku).toEqual([0]);
       expect(newIndex.index.your).toEqual([0, 1]);
     });
   });
@@ -71,16 +70,16 @@ describe('Inverted Index Suite', () => {
       expect(newIndex.searchIndex).toBeDefined();
     });
     it('should return correct index for each word', () => {
-      expect(newIndex.searchIndex('heroku',newIndex.getIndex())).toEqual({
+      expect(newIndex.searchIndex('heroku', newIndex.getIndex())).toEqual({
         'heroku': [0]
       });
-      expect(newIndex.searchIndex('your',newIndex.getIndex())).toEqual({
+      expect(newIndex.searchIndex('your', newIndex.getIndex())).toEqual({
         'your': [0, 1]
       });
-      expect(newIndex.searchIndex('amity',newIndex.getIndex())).toEqual({
+      expect(newIndex.searchIndex('amity', newIndex.getIndex())).toEqual({
         'amity': 'We are Sorry but amity is not found in our database'
       });
     });
   });
-  
+
 });

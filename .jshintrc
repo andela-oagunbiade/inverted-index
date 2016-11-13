@@ -1,6 +1,5 @@
 {
   "node": true,
-  "esnext": true,
   "bitwise": true,
   "camelcase": true,
   "curly": true,
@@ -15,7 +14,7 @@
   "unused": false,
   "strict": true,
   "trailing": true,
-  "esVersion": 6,
+  "esversion": 6,
   "smarttabs": true,
   "globals": {
     "atom": true,

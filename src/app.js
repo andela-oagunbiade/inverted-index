@@ -3,17 +3,12 @@
 const invertedApp = angular
   .module('InvertedIndex', [])
   .controller('invertedController', ($scope, $timeout) => {
-    $scope.message = 'Inverted Index';
-    $scope.uploadError = ' ';
-    $scope.indexObject = {0: 'type'};
-
+    const newIndex = new InvertedIndex();
     function setMessage(msg) {
       $scope.$apply(() => {
         $scope.uploadError = msg;
       });
     }
-
-    const newIndex = new InvertedIndex();
 
     $scope.uploadFile = () => {
       // Set index & search results
@@ -39,22 +34,16 @@ const invertedApp = angular
             $scope.uploadSuccess = true;
           }
           $scope.filed = filed;
-          // console.log($scope.filed);
           $scope.$apply();
         } catch (e) {
           setMessage(e);
         }
       };
     };
+    
     $scope.createIndex = () => {
-      // console.log($scope.indexObject);
-      // $scope.indexObject = newIndex.createIndex($scope.filed);
-      // console.log($scope.indexObject);
-      
       if ($scope.uploadSuccess) {
         $scope.indexObject = newIndex.createIndex($scope.filed);
-        console.log($scope.indexObject);        
-        // console.log($scope.index);
         $scope.range = [];
         const filedLength = $scope.filed.length;
         for (let docIndex = 0; docIndex < filedLength; docIndex++) {
@@ -63,14 +52,16 @@ const invertedApp = angular
         $scope.indexExists = true;
       } else {
         $scope.indexExists = false;
+        setMessage('Upload a valid JSON file first.');
       }
-      
-    }
+
+    };
 
     $scope.searchFile = () => {
       if ($scope.indexExists) {
         $scope.searchItem = $scope.searchTerm;
-        $scope.searchResults = newIndex.searchIndex($scope.searchItem, $scope.indexObject);
+        $scope.searchResults = newIndex
+          .searchIndex($scope.searchItem, $scope.indexObject);
         $scope.validSearch = true;
       } else {
         $scope.validSearch = false;

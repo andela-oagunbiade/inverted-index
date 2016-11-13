@@ -19,6 +19,31 @@
   margin-top: 20px;
 }
 
+#quick-guide {
+    margin-top: -30px;
+    width: 500px;
+    align-self: center;
+}
+
+#guide-list {
+  margin-top: -15px;
+}
+
+ul,
+ol {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+#upload-section {
+  margin-left: 50px;
+}
+
+#index {
+  margin-top: 19px;
+  margin-left: 20px;
+}
+
 #error-paragraph {
   color: red;
   height: 5px;
@@ -29,6 +54,7 @@
 
 #success-paragraph {
   color: green;
+  font-weight: bold;
   height: 5px;
   width: 250px;
   margin-top: 5px;
@@ -46,6 +72,10 @@
 
 hr {
   width: 500px;
+}
+
+#search-line {
+  margin-top: -22px;
 }
 
 #search-files {

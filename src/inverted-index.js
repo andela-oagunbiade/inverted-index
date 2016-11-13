@@ -1,11 +1,8 @@
 class InvertedIndex {
 
   constructor() {
-    //Array to hold concatenated text and title
-    this.indexWords = [];
-    //Object to hold the indexes
+    //Object to hold the index
     this.index = {};
-    this.searchResults = {};
   }
 
   /** 
@@ -13,7 +10,7 @@ class InvertedIndex {
    * @return{Array} cleanContent
    */
   tokenize(words) {
-    let cleanContent = words.trim().replace(/-/g, ' ')
+    const cleanContent = words.trim().replace(/-/g, ' ')
       .replace(/[.,\/#!$%\^&@\*;:'{}=\_`~()]/g, '')
       .toLowerCase().split(' ').sort();
     return cleanContent;
@@ -24,7 +21,7 @@ class InvertedIndex {
    * @return{Array} tokens - Without duplicated words
    */
   uniqueWords(words) {
-    let tokens = this.tokenize(words);
+    const tokens = this.tokenize(words);
     return tokens.filter((item, index) => {
       return tokens.indexOf(item) === index;
     });
@@ -32,31 +29,30 @@ class InvertedIndex {
   }
 
   /**
-   * @param{Array} jsonData - The contents of the JSON file to be indexed
+   * @param{Array} fileToIndex - Array of contents of the JSON file to index
    * @return{Object} index - That maps words to locations(documents)
    */
-  createIndex(file) {
-    let indexWords = [];
-    let index = {};
-    for (let document of file) {
+  createIndex(fileToIndex) {
+    const wordsToIndex = [];
+    const index = {};
+    for (let document of fileToIndex) {
       if (document.text) {
-        indexWords.push(document.title.toLowerCase() + ' ' +
+        wordsToIndex.push(document.title.toLowerCase() + ' ' +
           document.text.toLowerCase());
       } else {
         return 'JSON file is Empty';
       }
 
     }
-    const uniqueContent = this.uniqueWords(indexWords.join(' '));
+    const uniqueContent = this.uniqueWords(wordsToIndex.join(' '));
     uniqueContent.forEach((word) => {
       index[word] = [];
-      indexWords.forEach((document, indexPosition) => {
+      wordsToIndex.forEach((document, indexPosition) => {
         if (document.indexOf(word) > -1) {
           index[word].push(indexPosition);
         }
       });
     });
-    console.log(index);
     this.index = index;
     return index;
   }
@@ -66,16 +62,15 @@ class InvertedIndex {
   }
 
   /**
-   * @param{String} searchString - Search query
-   * @return{Array} searchResults
+   * @param{String} searchString, searchIndex - Search query
+   * @return{Object} searchResults - Maps searched words to document locations
    */
-  searchIndex(searchString, searchIndex) {
-    let searchResults = {};
-    let searchTerms = this.uniqueWords(searchString);
-    const self = this;
+  searchIndex(searchWords, indexToSearch) {
+    const searchResults = {};
+    const searchTerms = this.uniqueWords(searchWords);
     for (let word of searchTerms) {
-      if (searchIndex[word]) {
-        searchResults[word] = searchIndex[word];
+      if (indexToSearch[word]) {
+        searchResults[word] = indexToSearch[word];
       } else {
         searchResults[word] = `We are Sorry but ${word} is not found in our database`;
       }
