@@ -1,11 +1,11 @@
 'use strict';
+
 const books = require('./books');
 
-//A test suite to read book data
+// A test suite to read book data
 describe('Inverted Index Suite', () => {
   //Create an instance of the Index class
   const newIndex = new InvertedIndex();
-  const emptyBook = [{}];
   const sampleSentence = 'As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.';
   const mySearch = ['your', 'all', 'andela'];
   newIndex.createIndex(books);
@@ -44,7 +44,7 @@ describe('Inverted Index Suite', () => {
       expect(newIndex.createIndex).toBeDefined();
     });
     it('should ensure the JSON file is not empty', () => {
-      expect(newIndex.createIndex(emptyBook)).toBe('JSON file is Empty');
+      expect(newIndex.createIndex(books)).not.toBe('JSON file is Empty');
     });
   });
 
