@@ -39,13 +39,15 @@ class InvertedIndex {
   createIndex(fileToIndex) {
     const wordsToIndex = [];
     const index = {};
+    const fileLength = fileToIndex.length;
+    if (fileLength === 0) {
+      return 'JSON file is Empty';
+    }
     fileToIndex.forEach((document) => {
       if (document.text) {
         wordsToIndex
           .push(`${document.title.toLowerCase()} ${document.text
             .toLowerCase()}`);
-      } else {
-        return 'JSON file is Empty';
       }
     });
     const uniqueContent = this.uniqueWords(wordsToIndex.join(' '));
