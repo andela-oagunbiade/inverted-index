@@ -7,7 +7,7 @@ describe('Inverted Index Suite', () => {
   //Create an instance of the Index class
   const newIndex = new InvertedIndex();
   const emptyBook = [];
-  const sampleSentence = 'As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.';
+  const sampleSentence = 'As &you can see here, you have defined *the function';
   const mySearch = ['your', 'all', 'andela'];
   newIndex.createIndex(books);
 
@@ -27,7 +27,7 @@ describe('Inverted Index Suite', () => {
       expect(newIndex.tokenize(sampleSentence)).not.toContain('&');
     });
     it('should return an array containing the correct number of words', () => {
-      expect(newIndex.tokenize(sampleSentence).length).toBe(20);
+      expect(newIndex.tokenize(sampleSentence).length).toBe(10);
     });
   });
 
@@ -36,7 +36,7 @@ describe('Inverted Index Suite', () => {
       expect(newIndex.uniqueWords).toBeDefined();
     });
     it('should return an array of words without duplicates', () => {
-      expect(newIndex.uniqueWords(sampleSentence).length).toBe(16);
+      expect(newIndex.uniqueWords(sampleSentence).length).toBe(9);
     });
   });
 
