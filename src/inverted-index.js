@@ -11,7 +11,7 @@ class InvertedIndex {
   }
 
   /**
-   * @param{String} words - String to tokonize
+   * @param{String} words - String to tokenize
    * @return{Array} list of words devoid of special characters or symbols
    */
   static tokenize(words) {
