@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Inverted Index</title>
+	<!--Links tags to Material Design-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+	<link rel="stylesheet" href="./src/inverted-index.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+	<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+	<script type="text/javascript" src="./src/inverted-index.js"></script>
+	<script type="text/javascript" src="./src/app.js"></script>
+</head>
+
+<body ng-app="InvertedIndex">
+	<!-- Always shows a header, even in smaller screens. -->
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+		<header class="mdl-layout__header">
+			<div class="mdl-layout__header-row">
+				<!-- Title -->
+				<span class="mdl-layout-title">Inverted Index</span>
+				<!-- Add spacer, to align navigation to the right -->
+			</div>
+		</header>
+		<br /><br />
+		<div id="quick-guide">
+			<p>Quick Guide</p>
+			<ul id="guide-list">
+				<li>Choose a JSON File from your directory</li>
+				<li>Use the "Upload File" Button to have the file uploaded</li>
+				<li>Use the "Create Index" Button to have the index created and displayed</li>
+				<li>Use the "Search Files" Button to check the location of a word in the index</li>
+			</ul>
+		</div>
+		<main ng-controller="invertedController">
+			<div class="index-content">
+				<div id='upload-section'>
+					<form>
+						<input type="file" id="select-files" value="Import" accept="json" />
+						<p style="height:10px;">
+							<span ng-show="!uploadSuccess" id="error-paragraph">{{ uploadError }}</span>
+							<span ng-show="uploadSuccess" id="success-paragraph"> Upload Successful! </span>
+						</p>
+					</form>
+				</div>
+				<!-- Colored raised button -->
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="import" ng-click="uploadFile()">
+            <span>Upload File</span>
+          </button>
+				<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="index" ng-click="createIndex()">
+            <span>Create Index</span>
+          </button>
+				</form>
+				<br />
+				<div>
+					<hr>
+				</div>
+				<br />
+				<div id="index-table">
+					<table ng-if="uploadSuccess && indexExists" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+						<thead>
+							<tr>
+								<th> Keywords </th>
+								<th ng-repeat="i in range">Document {{ i+1 }}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="(key,value) in indexObject">
+								<td style="text-align: center">{{ key }}</td>
+								<td ng-repeat="i in range" style="text-align: center; font-weight:bold"> <span ng-if="value.includes(i)"> X </span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div align="center" class="search-content">
+				<form>
+					<input type="text" id="search-files" placeholder="Enter a word to search" ng-model="searchTerm" />
+					<!-- Colored raised button -->
+					<br/>
+					<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="search-button" ng-click="searchFile()">
+            <span>Search Files</span>
+          </button>
+				</form>
+				<br/>
+				<div id='search-line'>
+					<hr>
+				</div>
+				<br/>
+				<div id="search-table">
+					<table ng-if="uploadSuccess && indexExists && validSearch" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+						<thead>
+							<tr>
+								<th> Searched Word </th>
+								<th ng-repeat="i in range">Document {{ i+1 }}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="(key,value) in searchResults">
+								<td style="text-align: center">{{ key }}</td>
+								<td ng-repeat="i in range" style="text-align: center">
+									<span ng-if="value.includes(i)" style="color:green; font-weight:bold"> X </span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</div>
+	</main>
+	</div>
+</body>
+
+</html>
