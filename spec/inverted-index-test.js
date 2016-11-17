@@ -21,13 +21,13 @@ describe('Inverted Index Suite', () => {
 
   describe('Tokenize String Method', () => {
     it('should be available in class InvertedIndex', () => {
-        expect(newIndex.tokenize).toBeDefined();
+        expect(InvertedIndex.tokenize).toBeDefined();
       });
     it('should return an array containing alphabets only', () => {
-      expect(newIndex.tokenize(sampleSentence)).not.toContain('&');
+      expect(InvertedIndex.tokenize(sampleSentence)).not.toContain('&');
     });
     it('should return an array containing the correct number of words', () => {
-      expect(newIndex.tokenize(sampleSentence).length).toBe(10);
+      expect(InvertedIndex.tokenize(sampleSentence).length).toBe(10);
     });
   });
 

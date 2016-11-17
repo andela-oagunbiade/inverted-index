@@ -11,16 +11,15 @@ class InvertedIndex {
   }
 
   /**
-   * @param{String} words - String to be tokonized
-   * @return{Array} cleanContent
+   * @param{String} words - String to tokonize
+   * @return{Array} list of words devoid of special characters or symbols
    */
-  tokenize(words) {
-    const cleanContent = words.trim().replace(/-/g, ' ')
+  static tokenize(words) {
+    return words.trim().replace(/-/g, ' ')
       .replace(/[.,\/#!$%\^&@\*;:'{}=\_`~()]/g, '')
       .toLowerCase()
       .split(' ')
       .sort();
-    return cleanContent;
   }
 
   /**
@@ -28,7 +27,7 @@ class InvertedIndex {
    * @return{Array} tokens - Without duplicated words
    */
   uniqueWords(words) {
-    const tokens = this.tokenize(words);
+    const tokens = InvertedIndex.tokenize(words);
     return tokens.filter((item, index) => tokens.indexOf(item) === index);
   }
 
@@ -82,7 +81,8 @@ class InvertedIndex {
       if (indexToSearch[word]) {
         searchResults[word] = indexToSearch[word];
       } else {
-        searchResults[word] = `We are Sorry but ${word} is not found in our database`;
+        searchResults[word] =
+          `We are Sorry but ${word} is not found in our database`;
       }
     });
     return searchResults;
