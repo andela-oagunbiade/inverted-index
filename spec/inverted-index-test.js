@@ -8,7 +8,7 @@ describe('Inverted Index Suite', () => {
   const newIndex = new InvertedIndex();
   const emptyBook = [];
   const sampleSentence = 'As &you can see here, you have defined *the function';
-  const mySearch = ['your', 'all', 'andela'];
+  const multipleSearch = 'Coverage lines for you';
   newIndex.createIndex(books);
 
   describe('Class Inverted Index', () => {
@@ -19,10 +19,10 @@ describe('Inverted Index Suite', () => {
     });
   });
 
-  describe('Tokenize String Method', () => {
+  describe('Tokenize String', () => {
     it('should be available in class InvertedIndex', () => {
-        expect(InvertedIndex.tokenize).toBeDefined();
-      });
+      expect(InvertedIndex.tokenize).toBeDefined();
+    });
     it('should return an array containing alphabets only', () => {
       expect(InvertedIndex.tokenize(sampleSentence)).not.toContain('&');
     });
@@ -31,12 +31,12 @@ describe('Inverted Index Suite', () => {
     });
   });
 
-  describe('Unique Words Method', () => {
+  describe('Unique Words', () => {
     it('should be available in class InvertedIndex', () => {
-      expect(newIndex.uniqueWords).toBeDefined();
+      expect(InvertedIndex.uniqueWords).toBeDefined();
     });
     it('should return an array of words without duplicates', () => {
-      expect(newIndex.uniqueWords(sampleSentence).length).toBe(9);
+      expect(InvertedIndex.uniqueWords(sampleSentence).length).toBe(9);
     });
   });
 
@@ -61,7 +61,7 @@ describe('Inverted Index Suite', () => {
     });
   });
 
-  describe('Get Index Method', () => {
+  describe('Get Index', () => {
     it('should return an accurate index Object of the indexed file', () => {
       expect(Object.keys(newIndex.getIndex()).length).toBe(38);
     });
@@ -81,6 +81,13 @@ describe('Inverted Index Suite', () => {
       expect(newIndex.searchIndex('amity', newIndex.getIndex())).toEqual({
         'amity': 'We are Sorry but amity is not found in our database'
       });
+      expect(newIndex.searchIndex(multipleSearch, newIndex.getIndex()))
+        .toEqual({
+          'coverage': [1],
+          'for': 'We are Sorry but for is not found in our database',
+          'lines': [1],
+          'you': [0, 1]
+        });
     });
   });
 

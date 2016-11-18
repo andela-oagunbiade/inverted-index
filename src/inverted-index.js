@@ -26,7 +26,7 @@ class InvertedIndex {
    * @param{String} words - The string to be filtered
    * @return{Array} tokens - Without duplicated words
    */
-  uniqueWords(words) {
+  static uniqueWords(words) {
     const tokens = InvertedIndex.tokenize(words);
     return tokens.filter((item, index) => tokens.indexOf(item) === index);
   }
@@ -49,7 +49,7 @@ class InvertedIndex {
             .toLowerCase()}`);
       }
     });
-    const uniqueContent = this.uniqueWords(wordsToIndex.join(' '));
+    const uniqueContent = InvertedIndex.uniqueWords(wordsToIndex.join(' '));
     uniqueContent.forEach((word) => {
       index[word] = [];
       wordsToIndex.forEach((document, indexPosition) => {
@@ -76,7 +76,7 @@ class InvertedIndex {
    */
   searchIndex(searchWords, indexToSearch) {
     const searchResults = {};
-    const searchTerms = this.uniqueWords(searchWords);
+    const searchTerms = InvertedIndex.uniqueWords(searchWords);
     searchTerms.forEach((word) => {
       if (indexToSearch[word]) {
         searchResults[word] = indexToSearch[word];
