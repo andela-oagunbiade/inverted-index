@@ -22,6 +22,7 @@ An application that takes in a JSON array of text objects and creates an index f
 
 ## How to use
 - Web use
+
 Available via heroku hosted platform on : [https://inverted-index-ore.herokuapp.com](https://inverted-index-ore.herokuapp.com/).
 It can also be used locally by following the steps below
 
@@ -43,12 +44,7 @@ npm test
 ```
 npm start
 ```
-and access on your browser via http://localhost:3000/ or 
-
-To also access Developer features such as Browser-sync; run the Task-runner with:
-```
-gulp 
-```
+and access on your browser via http://localhost:3000/ This also makes available Developer features such as Browser-sync to immediately reflect any changes in your source files.
 
 
 
@@ -65,5 +61,4 @@ gulp
 
 
 ## Application Limitations
-- This version of the app does not yet feature multiple file uploads
-- It only takes in single search queries
+- This version of the app does not feature multiple file uploads
