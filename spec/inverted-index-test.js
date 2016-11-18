@@ -1,13 +1,14 @@
 'use strict';
+
 const books = require('./books');
 
-//A test suite to read book data
+// A test suite to read book data
 describe('Inverted Index Suite', () => {
   //Create an instance of the Index class
   const newIndex = new InvertedIndex();
-  const emptyBook = [{}];
-  const sampleSentence = 'As &you can see here, we have defined *the function, useCounter(), as the target of the self-executing function %block.';
-  const mySearch = ['your', 'all', 'andela'];
+  const emptyBook = [];
+  const sampleSentence = 'As &you can see here, you have defined *the function';
+  const multipleSearch = 'Coverage lines for you';
   newIndex.createIndex(books);
 
   describe('Class Inverted Index', () => {
@@ -18,24 +19,24 @@ describe('Inverted Index Suite', () => {
     });
   });
 
-  describe('Tokenize String Method', () => {
+  describe('Tokenize String', () => {
     it('should be available in class InvertedIndex', () => {
-        expect(newIndex.tokenize).toBeDefined();
-      });
+      expect(InvertedIndex.tokenize).toBeDefined();
+    });
     it('should return an array containing alphabets only', () => {
-      expect(newIndex.tokenize(sampleSentence)).not.toContain('&');
+      expect(InvertedIndex.tokenize(sampleSentence)).not.toContain('&');
     });
     it('should return an array containing the correct number of words', () => {
-      expect(newIndex.tokenize(sampleSentence).length).toBe(20);
+      expect(InvertedIndex.tokenize(sampleSentence).length).toBe(10);
     });
   });
 
-  describe('Unique Words Method', () => {
+  describe('Unique Words', () => {
     it('should be available in class InvertedIndex', () => {
-      expect(newIndex.uniqueWords).toBeDefined();
+      expect(InvertedIndex.uniqueWords).toBeDefined();
     });
     it('should return an array of words without duplicates', () => {
-      expect(newIndex.uniqueWords(sampleSentence).length).toBe(16);
+      expect(InvertedIndex.uniqueWords(sampleSentence).length).toBe(9);
     });
   });
 
@@ -45,6 +46,7 @@ describe('Inverted Index Suite', () => {
     });
     it('should ensure the JSON file is not empty', () => {
       expect(newIndex.createIndex(emptyBook)).toBe('JSON file is Empty');
+      expect(newIndex.createIndex(books)).not.toBe('JSON file is Empty');
     });
   });
 
@@ -59,7 +61,7 @@ describe('Inverted Index Suite', () => {
     });
   });
 
-  describe('Get Index Method', () => {
+  describe('Get Index', () => {
     it('should return an accurate index Object of the indexed file', () => {
       expect(Object.keys(newIndex.getIndex()).length).toBe(38);
     });
@@ -79,6 +81,13 @@ describe('Inverted Index Suite', () => {
       expect(newIndex.searchIndex('amity', newIndex.getIndex())).toEqual({
         'amity': 'We are Sorry but amity is not found in our database'
       });
+      expect(newIndex.searchIndex(multipleSearch, newIndex.getIndex()))
+        .toEqual({
+          'coverage': [1],
+          'for': 'We are Sorry but for is not found in our database',
+          'lines': [1],
+          'you': [0, 1]
+        });
     });
   });
 

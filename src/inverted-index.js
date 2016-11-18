@@ -1,31 +1,34 @@
+/**
+ * Inverted index class
+ */
 class InvertedIndex {
-
+  /**
+   * Inverted index constructor
+   */
   constructor() {
-    //Object to hold the index
+    // Object to hold the index
     this.index = {};
   }
 
-  /** 
-   * @param{String} words - String to be tokonized
-   * @return{Array} cleanContent
+  /**
+   * @param{String} words - String to tokenize
+   * @return{Array} list of words devoid of special characters or symbols
    */
-  tokenize(words) {
-    const cleanContent = words.trim().replace(/-/g, ' ')
+  static tokenize(words) {
+    return words.trim().replace(/-/g, ' ')
       .replace(/[.,\/#!$%\^&@\*;:'{}=\_`~()]/g, '')
-      .toLowerCase().split(' ').sort();
-    return cleanContent;
+      .toLowerCase()
+      .split(' ')
+      .sort();
   }
 
   /**
    * @param{String} words - The string to be filtered
    * @return{Array} tokens - Without duplicated words
    */
-  uniqueWords(words) {
-    const tokens = this.tokenize(words);
-    return tokens.filter((item, index) => {
-      return tokens.indexOf(item) === index;
-    });
-
+  static uniqueWords(words) {
+    const tokens = InvertedIndex.tokenize(words);
+    return tokens.filter((item, index) => tokens.indexOf(item) === index);
   }
 
   /**
@@ -35,16 +38,18 @@ class InvertedIndex {
   createIndex(fileToIndex) {
     const wordsToIndex = [];
     const index = {};
-    for (let document of fileToIndex) {
-      if (document.text) {
-        wordsToIndex.push(document.title.toLowerCase() + ' ' +
-          document.text.toLowerCase());
-      } else {
-        return 'JSON file is Empty';
-      }
-
+    const fileLength = fileToIndex.length;
+    if (fileLength === 0) {
+      return 'JSON file is Empty';
     }
-    const uniqueContent = this.uniqueWords(wordsToIndex.join(' '));
+    fileToIndex.forEach((document) => {
+      if (document.text) {
+        wordsToIndex
+          .push(`${document.title.toLowerCase()} ${document.text
+            .toLowerCase()}`);
+      }
+    });
+    const uniqueContent = InvertedIndex.uniqueWords(wordsToIndex.join(' '));
     uniqueContent.forEach((word) => {
       index[word] = [];
       wordsToIndex.forEach((document, indexPosition) => {
@@ -57,26 +62,29 @@ class InvertedIndex {
     return index;
   }
 
+  /**
+   * @return{Object} index - That maps words to locations(documents)
+   */
   getIndex() {
     return this.index;
   }
 
   /**
-   * @param{String} searchString, searchIndex - Search query
+   * @param{String} searchWords - Search query
+   * @param{String} indexToSearch - Index to query
    * @return{Object} searchResults - Maps searched words to document locations
    */
   searchIndex(searchWords, indexToSearch) {
     const searchResults = {};
-    const searchTerms = this.uniqueWords(searchWords);
-    for (let word of searchTerms) {
+    const searchTerms = InvertedIndex.uniqueWords(searchWords);
+    searchTerms.forEach((word) => {
       if (indexToSearch[word]) {
         searchResults[word] = indexToSearch[word];
       } else {
-        searchResults[word] = `We are Sorry but ${word} is not found in our database`;
+        searchResults[word] =
+          `We are Sorry but ${word} is not found in our database`;
       }
-
-    }
-
+    });
     return searchResults;
   }
 

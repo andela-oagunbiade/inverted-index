@@ -1,0 +1,3 @@
+spec/lib/**
+src/app.js
+spec/inverted-index-test.js

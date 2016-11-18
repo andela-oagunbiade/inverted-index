@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Spec for</title>
+  <style>
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: .9em;
+  line-height: 1.5;
+}
+.suite ul {list-style-type: none; margin-top: .4em }
+.suite li { margin-bottom: .8em; }
+.suite { margin-top: 1em }
+.success {color: green }
+.success:before { content: "✓ " }
+.failure {color: red }
+.failure:before { content: "✗ " }
+  </style>
+</head>
+<body>
+<h1>Spec</h1><div class="suite">
+<ul>
+    <li class="suite">Inverted Index Suite
+      <ul>
+        <li class="suite">Class Inverted Index
+          <ul>
+            <li class="success">should be a class</li>
+          </ul>
+        </li>
+        <li class="suite">Tokenize String
+          <ul>
+            <li class="success">should be available in class InvertedIndex</li>
+            <li class="success">should return an array containing alphabets only</li>
+            <li class="success">should return an array containing the correct number of words</li>
+          </ul>
+        </li>
+        <li class="suite">Unique Words
+          <ul>
+            <li class="success">should be available in class InvertedIndex</li>
+            <li class="success">should return an array of words without duplicates</li>
+          </ul>
+        </li>
+        <li class="suite">Read Book Data
+          <ul>
+            <li class="success">should have createIndex available in class InvertedIndex</li>
+            <li class="success">should ensure the JSON file is not empty</li>
+          </ul>
+        </li>
+        <li class="suite">Populate Index
+          <ul>
+            <li class="success">should have an Index created</li>
+            <li class="success">should accurately map words to their document location</li>
+          </ul>
+        </li>
+        <li class="suite">Get Index
+          <ul>
+            <li class="success">should return an accurate index Object of the indexed file</li>
+          </ul>
+        </li>
+        <li class="suite">Search Index
+          <ul>
+            <li class="success">should have searchIndex method accessible in the class</li>
+            <li class="success">should return correct index for each word</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+</ul>
+</div>
+
+</body>
+</html>

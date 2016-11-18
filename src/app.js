@@ -1,8 +1,6 @@
-'use strict';
-
 const invertedApp = angular
   .module('InvertedIndex', [])
-  .controller('invertedController', ($scope, $timeout) => {
+  .controller('invertedController', ($scope) => {
     const newIndex = new InvertedIndex();
     function setMessage(msg) {
       $scope.$apply(() => {
@@ -40,7 +38,7 @@ const invertedApp = angular
         }
       };
     };
-    
+
     $scope.createIndex = () => {
       if ($scope.uploadSuccess) {
         $scope.indexObject = newIndex.createIndex($scope.filed);
@@ -66,7 +64,5 @@ const invertedApp = angular
       } else {
         $scope.validSearch = false;
       }
-
     };
-
   });
