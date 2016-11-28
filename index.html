@@ -7,10 +7,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
   <link rel="stylesheet" href="./src/inverted-index.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/g/intro.js@2.3.0(introjs-rtl.min.css+introjs.min.css)">
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
   <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
   <script type="text/javascript" src="./src/inverted-index.js"></script>
   <script type="text/javascript" src="./src/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/intro.js/2.3.0/intro.min.js"></script>
 </head>
 
 <body ng-app="InvertedIndex">
@@ -24,7 +26,10 @@
       </div>
     </header>
     <br /><br />
-    <div id="quick-guide">
+    <div id="quick-guide" data-intro="Read through Quick Guide" data-step="1">
+      <button onclick="introJs().start();">
+      <span>Take a Tour</span>
+    </button>
       <p>Quick Guide</p>
       <ul id="guide-list">
         <li>Choose a JSON File from your directory</li>
@@ -35,7 +40,7 @@
     </div>
     <main ng-controller="invertedController">
       <div class="index-content">
-        <div id='upload-section'>
+        <div id='upload-section' data-intro="Select a JSON File from your PC" data-step="2">
           <form>
             <input type="file" id="select-files" value="Import" accept="json" />
             <p style="height:10px;">
@@ -45,10 +50,10 @@
           </form>
         </div>
         <!-- Colored raised button -->
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="import" ng-click="uploadFile()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="import" ng-click="uploadFile()" data-intro="Use this to Upload JSON File" data-step="3">
             <span>Upload File</span>
           </button>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="index" ng-click="createIndex()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="index" ng-click="createIndex()" data-intro="Use this to Generate the Index" data-step="4">
             <span>Create Index</span>
           </button>
         </form>
@@ -76,10 +81,10 @@
       </div>
       <div align="center" class="search-content">
         <form>
-          <input type="text" id="search-files" placeholder="Enter a word to search" ng-model="searchTerm" />
+          <input type="text" id="search-files" placeholder="Enter a word to search" ng-model="searchTerm" data-intro="Type your search queries here" data-step="5"/>
           <!-- Colored raised button -->
           <br/>
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="search-button" ng-click="searchFile()">
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="search-button" ng-click="searchFile()" data-intro="Execute the search & Get results" data-step="6">
             <span>Search Files</span>
           </button>
         </form>

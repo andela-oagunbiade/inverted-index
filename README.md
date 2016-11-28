@@ -14,7 +14,7 @@ An application that takes in a JSON array of text objects and creates an index f
     },
     {"title": "Coveralls",
     "text": "See the latest code-coverage statistics on all of your repositories including the total percentages covered and the lines covered."
-    }         
+    }
 ]
 ```
 - Creates Index of all documents with title and text keys in uploaded file.
@@ -26,7 +26,7 @@ An application that takes in a JSON array of text objects and creates an index f
 Available via heroku hosted platform on : [https://inverted-index-ore.herokuapp.com](https://inverted-index-ore.herokuapp.com/).
 It can also be used locally by following the steps below
 
-- Local Machine 
+- Local Machine
 ```
 git clone https://github.com/andela-oagunbiade/inverted-index.git
 ```
@@ -44,6 +44,12 @@ npm test
 ```
 npm start
 ```
+and access on your browser via http://localhost:3000/ or
+
+To also access Developer features such as Browser-sync; run the Task-runner with:
+```
+gulp
+```
 and access on your browser via http://localhost:3000/ This also makes available Developer features such as Browser-sync to immediately reflect any changes in your source files.
 
 
@@ -58,6 +64,7 @@ and access on your browser via http://localhost:3000/ This also makes available 
 - Codeclimate (For styling badge)
 - AngularJs (For Manipulating model responsive views)
 - Material lite Design (For View Styling)
+- IntroJs (For Quick Tour)
 
 
 ## Application Limitations
