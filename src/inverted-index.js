@@ -32,12 +32,13 @@ class InvertedIndex {
   }
 
   /**
+   * @param{String} fileName - The name of the file to be indexed
    * @param{Array} fileToIndex - Array of contents of the JSON file to index
    * @return{Object} index - That maps words to locations(documents)
    */
-  createIndex(fileToIndex) {
+  createIndex(fileName, fileToIndex) {
     const wordsToIndex = [];
-    const index = {};
+    const fileIndex = {};
     const fileLength = fileToIndex.length;
     if (fileLength === 0) {
       return 'JSON file is Empty';
@@ -51,41 +52,52 @@ class InvertedIndex {
     });
     const uniqueContent = InvertedIndex.uniqueWords(wordsToIndex.join(' '));
     uniqueContent.forEach((word) => {
-      index[word] = [];
+      fileIndex[word] = [];
       wordsToIndex.forEach((document, indexPosition) => {
         if (document.indexOf(word) > -1) {
-          index[word].push(indexPosition);
+          fileIndex[word].push(indexPosition);
         }
       });
     });
-    this.index = index;
-    return index;
+    this.index[fileName] = fileIndex;
   }
 
   /**
-   * @return{Object} index - That maps words to locations(documents)
+   * @param{String} fileName - The name of the file whose index is required
+   * @return{Object} index - The correct mapping of words to locations for specified file
    */
-  getIndex() {
-    return this.index;
+  getIndex(fileName) {
+    return this.index[fileName];
   }
 
   /**
-   * @param{String} searchWords - Search query
+   * @param{String} searchQuery - Words to search for
    * @param{String} indexToSearch - Index to query
    * @return{Object} searchResults - Maps searched words to document locations
    */
-  searchIndex(searchWords, indexToSearch) {
-    const searchResults = {};
-    const searchTerms = InvertedIndex.uniqueWords(searchWords);
+  searchIndex(searchQuery, indexToSearch) {
+    const searchResult = {};
+    const searchTerms = InvertedIndex.uniqueWords(searchQuery);
     searchTerms.forEach((word) => {
-      if (indexToSearch[word]) {
-        searchResults[word] = indexToSearch[word];
+      if (indexToSearch) {
+        if (this.index[indexToSearch][word]) {
+          searchResult[word] = this.index[indexToSearch][word];
+        } else {
+          searchResult[word] =
+            `We are Sorry but ${word} is not found in our database`;
+        }
       } else {
-        searchResults[word] =
-          `We are Sorry but ${word} is not found in our database`;
+        Object.keys(this.index).forEach((key) => {
+          if (this.index[key][word]) {
+            searchResult[word] = this.index[key][word];
+          } else {
+            searchResult[word] =
+              `We are Sorry but ${word} is not found in our database`;
+          }
+        });
       }
     });
-    return searchResults;
+    return searchResult;
   }
 
 }

@@ -9,7 +9,7 @@ describe('Inverted Index Suite', () => {
   const emptyBook = [];
   const sampleSentence = 'As &you can see here, you have defined *the function';
   const multipleSearch = 'Coverage lines for you';
-  newIndex.createIndex(books);
+  newIndex.createIndex('books', books);
 
   describe('Class Inverted Index', () => {
     it('should be a class', () => {
@@ -45,25 +45,29 @@ describe('Inverted Index Suite', () => {
       expect(newIndex.createIndex).toBeDefined();
     });
     it('should ensure the JSON file is not empty', () => {
-      expect(newIndex.createIndex(emptyBook)).toBe('JSON file is Empty');
-      expect(newIndex.createIndex(books)).not.toBe('JSON file is Empty');
+      expect(newIndex.createIndex('emptyBook', emptyBook))
+        .toBe('JSON file is Empty');
+      expect(newIndex.createIndex('books', books))
+        .not.toBe('JSON file is Empty');
     });
   });
 
   describe('Populate Index', () => {
     it('should have an Index created', () => {
-      expect(newIndex.index.heroku).toBeDefined();
+      expect(newIndex.index.books).toBeDefined();
     });
     it('should accurately map words to their document location', () => {
-      expect(Object.keys(newIndex.index).length).toBe(38);
-      expect(newIndex.index.heroku).toEqual([0]);
-      expect(newIndex.index.your).toEqual([0, 1]);
+      expect(Object.keys(newIndex.index).length).toBe(1);
+      expect(Object.keys(newIndex.index.books).length).toBe(38);
+      expect(newIndex.index.books.heroku).toEqual([0]);
+      expect(newIndex.index.books.your).toEqual([0, 1]);
     });
   });
 
   describe('Get Index', () => {
     it('should return an accurate index Object of the indexed file', () => {
-      expect(Object.keys(newIndex.getIndex()).length).toBe(38);
+      expect(newIndex.getIndex('books')).toBeDefined();
+      expect(Object.keys(newIndex.getIndex('books')).length).toBe(38);
     });
   });
 
@@ -71,24 +75,41 @@ describe('Inverted Index Suite', () => {
     it('should have searchIndex method accessible in the class', () => {
       expect(newIndex.searchIndex).toBeDefined();
     });
-    it('should return correct index for each word', () => {
-      expect(newIndex.searchIndex('heroku', newIndex.getIndex())).toEqual({
-        'heroku': [0]
-      });
-      expect(newIndex.searchIndex('your', newIndex.getIndex())).toEqual({
-        'your': [0, 1]
-      });
-      expect(newIndex.searchIndex('amity', newIndex.getIndex())).toEqual({
-        'amity': 'We are Sorry but amity is not found in our database'
-      });
-      expect(newIndex.searchIndex(multipleSearch, newIndex.getIndex()))
-        .toEqual({
+    it('should return correct index for each word if index to search is given',
+      () => {
+        expect(newIndex.searchIndex('heroku', 'books')).toEqual({
+          'heroku': [0]
+        });
+        expect(newIndex.searchIndex('your', 'books')).toEqual({
+          'your': [0, 1]
+        });
+        expect(newIndex.searchIndex('amity', 'books')).toEqual({
+          'amity': 'We are Sorry but amity is not found in our database'
+        });
+        expect(newIndex.searchIndex(multipleSearch, 'books')).toEqual({
           'coverage': [1],
           'for': 'We are Sorry but for is not found in our database',
           'lines': [1],
           'you': [0, 1]
         });
     });
+    it('should return correct index for each word without index to search',
+      () => {
+        expect(newIndex.searchIndex('heroku')).toEqual({
+          'heroku': [0]
+        });
+        expect(newIndex.searchIndex('your')).toEqual({
+          'your': [0, 1]
+        });
+        expect(newIndex.searchIndex('amity')).toEqual({
+          'amity': 'We are Sorry but amity is not found in our database'
+        });
+        expect(newIndex.searchIndex(multipleSearch)).toEqual({
+          'coverage': [1],
+          'for': 'We are Sorry but for is not found in our database',
+          'lines': [1],
+          'you': [0, 1]
+        });
+      });
   });
-
 });
