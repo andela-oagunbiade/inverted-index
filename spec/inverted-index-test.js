@@ -75,23 +75,41 @@ describe('Inverted Index Suite', () => {
     it('should have searchIndex method accessible in the class', () => {
       expect(newIndex.searchIndex).toBeDefined();
     });
-    it('should return correct index for each word', () => {
-      expect(newIndex.searchIndex('heroku', 'books')).toEqual({
-        'heroku': [0]
-      });
-      expect(newIndex.searchIndex('your', 'books')).toEqual({
-        'your': [0, 1]
-      });
-      expect(newIndex.searchIndex('amity', 'books')).toEqual({
-        'amity': 'We are Sorry but amity is not found in our database'
-      });
-      expect(newIndex.searchIndex(multipleSearch, 'books')).toEqual({
-        'coverage': [1],
-        'for': 'We are Sorry but for is not found in our database',
-        'lines': [1],
-        'you': [0, 1]
-      });
+    it('should return correct index for each word if index to search is given',
+      () => {
+        expect(newIndex.searchIndex('heroku', 'books')).toEqual({
+          'heroku': [0]
+        });
+        expect(newIndex.searchIndex('your', 'books')).toEqual({
+          'your': [0, 1]
+        });
+        expect(newIndex.searchIndex('amity', 'books')).toEqual({
+          'amity': 'We are Sorry but amity is not found in our database'
+        });
+        expect(newIndex.searchIndex(multipleSearch, 'books')).toEqual({
+          'coverage': [1],
+          'for': 'We are Sorry but for is not found in our database',
+          'lines': [1],
+          'you': [0, 1]
+        });
     });
+    it('should return correct index for each word without index to search',
+      () => {
+        expect(newIndex.searchIndex('heroku')).toEqual({
+          'heroku': [0]
+        });
+        expect(newIndex.searchIndex('your')).toEqual({
+          'your': [0, 1]
+        });
+        expect(newIndex.searchIndex('amity')).toEqual({
+          'amity': 'We are Sorry but amity is not found in our database'
+        });
+        expect(newIndex.searchIndex(multipleSearch)).toEqual({
+          'coverage': [1],
+          'for': 'We are Sorry but for is not found in our database',
+          'lines': [1],
+          'you': [0, 1]
+        });
+      });
   });
-
 });
