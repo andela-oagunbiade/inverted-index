@@ -3,15 +3,19 @@ const invertedApp = angular
   .controller('invertedController', ($scope) => {
     const newIndex = new InvertedIndex();
     function setMessage(msg) {
-      $scope.$apply(() => {
-        $scope.uploadError = msg;
-      });
+      $scope.uploadError = msg;
+      $scope.$apply();
     }
-
+    const uploadedFileNames = [];
+    const uploadedFileContent = [];
     $scope.uploadFile = () => {
       $scope.validSearch = false;
       $scope.indexExists = false;
       $scope.theFile = document.getElementById('select-files').files[0];
+      if (!$scope.theFile) {
+        setMessage('Please Select a file to Upload!');
+        return;
+      }
       const reader = new FileReader();
       reader.readAsText($scope.theFile);
 
@@ -29,9 +33,11 @@ const invertedApp = angular
             $scope.$apply();
           } else {
             $scope.uploadSuccess = true;
+            $scope.filed = filed;
+            uploadedFileNames.push($scope.theFile.name);
+            uploadedFileContent.push(filed);
+            $scope.$apply();
           }
-          $scope.filed = filed;
-          $scope.$apply();
         } catch (e) {
           setMessage(e);
         }
@@ -47,11 +53,11 @@ const invertedApp = angular
           $scope.range.push(docIndex);
         }
         $scope.indexExists = true;
+        $scope.indexObject = newIndex.getIndex($scope.theFile.name);
       } else {
         $scope.indexExists = false;
         setMessage('Upload a valid JSON file first.');
       }
-      $scope.indexObject = newIndex.getIndex($scope.theFile.name);
     };
     $scope.searchFile = () => {
       if ($scope.indexExists) {
