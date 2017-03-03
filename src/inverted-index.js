@@ -76,28 +76,30 @@ class InvertedIndex {
    * @return{Object} searchResults - Maps searched words to document locations
    */
   searchIndex(searchQuery, indexToSearch) {
-    const searchResult = {};
+    const multipleFileResults = [];
+    let singleSearchResult = {};
     const searchTerms = InvertedIndex.uniqueWords(searchQuery);
     searchTerms.forEach((word) => {
+      const errorMessage = `We are Sorry but ${word} is not found in our database`;
       if (indexToSearch) {
-        if (this.index[indexToSearch][word]) {
-          searchResult[word] = this.index[indexToSearch][word];
-        } else {
-          searchResult[word] =
-            `We are Sorry but ${word} is not found in our database`;
-        }
+        // eslint-disable-next-line
+        this.index[indexToSearch][word] ?
+          (singleSearchResult[word] = this.index[indexToSearch][word]) :
+          (singleSearchResult[word] = errorMessage);
       } else {
         Object.keys(this.index).forEach((key) => {
-          if (this.index[key][word]) {
-            searchResult[word] = this.index[key][word];
-          } else {
-            searchResult[word] =
-              `We are Sorry but ${word} is not found in our database`;
-          }
+        // eslint-disable-next-line
+          this.index[key][word] ?
+            (singleSearchResult[word] = this.index[key][word]) :
+            (singleSearchResult[word] = errorMessage);
+
+          multipleFileResults.push(singleSearchResult);
+          singleSearchResult = {};
         });
       }
     });
-    return searchResult;
+    return (multipleFileResults.length === 0 ?
+      singleSearchResult : multipleFileResults);
   }
 
 }
