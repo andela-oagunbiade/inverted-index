@@ -95,21 +95,19 @@ describe('Inverted Index Suite', () => {
     });
     it('should return correct index for each word without index to search',
       () => {
-        expect(newIndex.searchIndex('heroku')).toEqual({
-          'heroku': [0]
-        });
-        expect(newIndex.searchIndex('your')).toEqual({
+        expect(newIndex.searchIndex('heroku')).toEqual([ { 'heroku': [0] } ]);
+        expect(newIndex.searchIndex('your')).toEqual([ {
           'your': [0, 1]
-        });
-        expect(newIndex.searchIndex('amity')).toEqual({
+        } ]);
+        expect(newIndex.searchIndex('amity')).toEqual([ {
           'amity': 'We are Sorry but amity is not found in our database'
-        });
-        expect(newIndex.searchIndex(multipleSearch)).toEqual({
-          'coverage': [1],
-          'for': 'We are Sorry but for is not found in our database',
-          'lines': [1],
-          'you': [0, 1]
-        });
+        } ]);
+        expect(newIndex.searchIndex(multipleSearch)).toEqual([
+          { 'coverage': [1] },
+          { 'for': 'We are Sorry but for is not found in our database'},
+          { 'lines': [1] },
+          { 'you': [0, 1] }
+        ]);
       });
   });
 });
